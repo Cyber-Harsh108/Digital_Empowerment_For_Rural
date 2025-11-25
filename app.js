@@ -152,8 +152,17 @@ const categoryData = {
 
 /* ===== COMPONENTS ===== */
 
+/* ==== NAVBAR WITH SMOOTH SCROLL TO SECTIONS ==== */
 function Navbar({ lang, setLang, onLogin }) {
   const t = translations[lang] || translations["en"];
+
+  const scrollToId = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <nav className="navbar fade-in">
       <div className="navbar-left">
@@ -164,11 +173,55 @@ function Navbar({ lang, setLang, onLogin }) {
         </div>
       </div>
       <div className="nav-links">
-        <a href="#education">Education</a>
-        <a href="#health">Health</a>
-        <a href="#services">Services</a>
-        <a href="#market">Market</a>
-        <a href="#payment">Payment</a>
+        {/* Education / Health / Services → categories section */}
+        <a
+          href="#education"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToId("categories");
+          }}
+        >
+          Education
+        </a>
+        <a
+          href="#health"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToId("categories");
+          }}
+        >
+          Health
+        </a>
+        <a
+          href="#services"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToId("categories");
+          }}
+        >
+          Services
+        </a>
+
+        {/* New sections */}
+        <a
+          href="#market"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToId("market");
+          }}
+        >
+          Market
+        </a>
+        <a
+          href="#payment"
+          onClick={(e) => {
+            e.preventDefault();
+            scrollToId("payment");
+          }}
+        >
+          Payment
+        </a>
+
         <select
           className="nav-select"
           value={lang}
@@ -197,9 +250,9 @@ function UpdatesBar({ lang }) {
       </div>
       <div className="updates-marquee">
         <div className="updates-text">
-          • Panchayat meeting about new water pump tomorrow at 10 AM.&nbsp;&nbsp;•
-          New seeds available at the co-op society.&nbsp;&nbsp;• Free eye
-          checkup camp at the primary school this Sunday.
+          • Panchayat meeting about new water pump tomorrow at 10 AM.&nbsp;&nbsp;• New
+          seeds available at the co-op society.&nbsp;&nbsp;• Free eye checkup camp at
+          the primary school this Sunday.
         </div>
       </div>
     </div>
@@ -218,8 +271,7 @@ function Hero({ lang }) {
         <div className="hero-metric-row">
           <div className="hero-metric">
             <strong>{t.govt}</strong>
-            I check my pension and land records instantly. No more waiting in
-            lines.
+            I check my pension and land records instantly. No more waiting in lines.
           </div>
           <div className="hero-metric">
             <strong>{t.edu}</strong>
@@ -245,8 +297,8 @@ function Hero({ lang }) {
             <span>🌾</span> My Village Snapshot
           </div>
           <p style={{ fontSize: "0.88rem", color: "#064e3b" }}>
-            "Since I learned to use this on my phone, I save Rs. 200 every month
-            that I used to spend on bus tickets to the town."
+            "Since I learned to use this on my phone, I save Rs. 200 every month that I
+            used to spend on bus tickets to the town."
           </p>
           <div className="hero-visual-box">
             <div className="hero-visual-title">How my life changed:</div>
@@ -263,96 +315,12 @@ function Hero({ lang }) {
   );
 }
 
-/* ===== NEW: EDUCATION SECTION ===== */
-function EducationSection({ lang }) {
-  const t = translations[lang] || translations["en"];
-  const data = categoryData.education;
-
-  return (
-    <section id="education" className="section fade-in">
-      <div className="section-header">
-        <p className="section-kicker">For My Children</p>
-        <h2 className="section-title">{data.title}</h2>
-        <p className="section-subtitle">{data.description}</p>
-      </div>
-
-      <div className="card-grid">
-        {data.options.map((opt, i) => (
-          <div key={i} className="card">
-            <h3>{opt.title}</h3>
-            <p>{opt.desc}</p>
-            <a
-              href={opt.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-              style={{
-                marginTop: "0.7rem",
-                padding: "0.45rem 0.9rem",
-                fontSize: "0.8rem",
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.3rem",
-              }}
-            >
-              Open ↗
-            </a>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ===== NEW: HEALTH SECTION ===== */
-function HealthSection({ lang }) {
-  const t = translations[lang] || translations["en"];
-  const data = categoryData.healthcare;
-
-  return (
-    <section id="health" className="section fade-in">
-      <div className="section-header">
-        <p className="section-kicker">For My Family</p>
-        <h2 className="section-title">{data.title}</h2>
-        <p className="section-subtitle">{data.description}</p>
-      </div>
-
-      <div className="card-grid">
-        {data.options.map((opt, i) => (
-          <div key={i} className="card">
-            <h3>{opt.title}</h3>
-            <p>{opt.desc}</p>
-            <a
-              href={opt.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary"
-              style={{
-                marginTop: "0.7rem",
-                padding: "0.45rem 0.9rem",
-                fontSize: "0.8rem",
-                textDecoration: "none",
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.3rem",
-              }}
-            >
-              Open ↗
-            </a>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ===== CATEGORIES / SERVICES SECTION ===== */
+/* ===== Original Categories (Education / Govt / Health) ===== */
 function CategoriesSection({ lang, onCategorySelect }) {
   const t = translations[lang] || translations["en"];
 
   return (
-    <section id="services" className="categories-section">
+    <section id="categories" className="categories-section">
       <div>
         <h3 className="categories-header-title">{t.explore}</h3>
         <p className="categories-header-text">{t.explore_sub}</p>
@@ -402,6 +370,100 @@ function CategoriesSection({ lang, onCategorySelect }) {
   );
 }
 
+/* ===== NEW: Market Section (same layout as categories) ===== */
+function MarketSection() {
+  return (
+    <section id="market" className="categories-section">
+      <div>
+        <h3 className="categories-header-title">My Village Market</h3>
+        <p className="categories-header-text">
+          Places where I check prices and find buyers for my crops and products.
+        </p>
+      </div>
+
+      <div className="category-grid">
+        <div className="category-card">
+          <div className="category-icon">🧺</div>
+          <div>
+            <h4 className="category-title">e-NAM (Online Mandi)</h4>
+            <p className="category-text">
+              I see mandi prices for my crops before I decide to sell.
+            </p>
+          </div>
+        </div>
+
+        <div className="category-card">
+          <div className="category-icon">📱</div>
+          <div>
+            <h4 className="category-title">WhatsApp Buyer Groups</h4>
+            <p className="category-text">
+              I join local groups where traders and farmers share offers.
+            </p>
+          </div>
+        </div>
+
+        <div className="category-card">
+          <div className="category-icon">🛒</div>
+          <div>
+            <h4 className="category-title">Nearby Shops & Co-ops</h4>
+            <p className="category-text">
+              I compare prices of seeds, fertilizer and tools in nearby markets.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ===== NEW: Payment Section (same layout, uses PhonePe) ===== */
+function PaymentSection() {
+  return (
+    <section id="payment" className="categories-section">
+      <div>
+        <h3 className="categories-header-title">My Digital Payments</h3>
+        <p className="categories-header-text">
+          Simple ways I send and receive money without going to the bank.
+        </p>
+      </div>
+
+      <div className="category-grid">
+        <div className="category-card">
+          <div className="category-icon">📲</div>
+          <div>
+            <h4 className="category-title">PhonePe (UPI Payments)</h4>
+            <p className="category-text">
+              I pay at shops and send money to family using PhonePe on my phone.
+            </p>
+          </div>
+        </div>
+
+        <div className="category-card">
+          <div className="category-icon">💸</div>
+          <div>
+            <h4 className="category-title">BHIM / Other UPI Apps</h4>
+            <p className="category-text">
+              I use UPI ID or QR code to pay instantly from my bank account.
+            </p>
+          </div>
+        </div>
+
+        <div className="category-card">
+          <div className="category-icon">🏦</div>
+          <div>
+            <h4 className="category-title">Bank Passbook & ATM</h4>
+            <p className="category-text">
+              I still keep some cash and check my balance at the bank or ATM
+              when needed.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ===== Category Modal ===== */
 function CategoryModal({ category, onClose }) {
   if (!category) return null;
   const data = categoryData[category];
@@ -413,7 +475,9 @@ function CategoryModal({ category, onClose }) {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="help-dialog-header">
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <div
+            style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}
+          >
             <span style={{ fontSize: "1.5rem" }}>{data.icon}</span>
             <div>
               <h3
@@ -484,72 +548,10 @@ function CategoryModal({ category, onClose }) {
   );
 }
 
-/* ===== NEW: MARKET SECTION ===== */
-function MarketSection() {
-  return (
-    <section id="market" className="section fade-in">
-      <div className="section-header">
-        <p className="section-kicker">My Farming Income</p>
-        <h2 className="section-title">Market & Mandi Prices</h2>
-        <p className="section-subtitle">
-          I check rates before selling, so I don’t get cheated.
-        </p>
-      </div>
-
-      <div className="card-grid">
-        <div className="card">
-          <h3>Today’s Mandi Prices (Example)</h3>
-          <p>Wheat: ₹2200 / quintal</p>
-          <p>Rice: ₹2600 / quintal</p>
-          <p>Mustard: ₹5800 / quintal</p>
-        </div>
-        <div className="card">
-          <h3>Agri Market Apps</h3>
-          <p>
-            Use government or trusted apps to see real-time prices for your crops
-            in nearby mandis.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ===== NEW: PAYMENT SECTION ===== */
-function PaymentSection() {
-  return (
-    <section id="payment" className="section fade-in">
-      <div className="section-header">
-        <p className="section-kicker">Money in My Phone</p>
-        <h2 className="section-title">Digital Payments</h2>
-        <p className="section-subtitle">
-          I send and receive money safely without standing in bank lines.
-        </p>
-      </div>
-
-      <div className="card-grid">
-        <div className="card">
-          <h3>UPI & QR Code</h3>
-          <p>
-            I use apps like PhonePe, Paytm, BHIM or Google Pay to pay at the shop
-            and receive money from buyers.
-          </p>
-        </div>
-        <div className="card">
-          <h3>Bank Account Safety</h3>
-          <p>
-            Never share your OTP or PIN with anyone. The bank never asks for it
-            on phone.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-}
-
+/* ===== Login Modal ===== */
 function LoginModal({ open, onClose }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   if (!open) return null;
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -575,7 +577,11 @@ function LoginModal({ open, onClose }) {
         <div className="help-dialog-body">
           {isLoggedIn ? (
             <div style={{ textAlign: "center", padding: "1rem" }}>
-              <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🙏</div>
+              <div
+                style={{ fontSize: "3rem", marginBottom: "1rem" }}
+              >
+                🙏
+              </div>
               <p>
                 Welcome back, <strong>Ramesh Kumar</strong>.
               </p>
@@ -636,7 +642,10 @@ function LoginModal({ open, onClose }) {
               <button
                 type="submit"
                 className="btn-primary"
-                style={{ width: "100%", justifyContent: "center" }}
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                }}
               >
                 Enter My Dashboard
               </button>
@@ -648,23 +657,25 @@ function LoginModal({ open, onClose }) {
   );
 }
 
+/* ===== Empowerment Section ===== */
 function EmpowermentSection({ lang }) {
   const t = translations[lang] || translations["en"];
   return (
     <section className="section empower-section">
       <h3 className="empower-title">{t.why_matters}</h3>
       <p className="empower-text">
-        "Before this website, I had to travel 50km to the district headquarters
-        just to get a signature or check a form status. I would lose a day's
-        wage and spend money on the bus. Now, I do it all from my smartphone
-        sitting under the village banyan tree. My children have the same study
-        materials as city kids. We are no longer left behind. This is our
-        power."
+        "Before this website, I had to travel 50km to the district
+        headquarters just to get a signature or check a form status. I would
+        lose a day's wage and spend money on the bus. Now, I do it all from my
+        smartphone sitting under the village banyan tree. My children have the
+        same study materials as city kids. We are no longer left behind. This
+        is our power."
       </p>
     </section>
   );
 }
 
+/* ===== Contact / Pledge Section ===== */
 function ContactSection({ lang }) {
   const t = translations[lang] || translations["en"];
   const [name, setName] = useState("");
@@ -743,14 +754,15 @@ function ContactSection({ lang }) {
   );
 }
 
+/* ===== Footer ===== */
 function Footer() {
   return (
     <footer className="footer">
       <div className="footer-inner">
         <span>
           © {new Date().getFullYear()}{" "}
-          <span className="footer-highlight">My Digital Village</span>. Made for
-          us, by us.
+          <span className="footer-highlight">My Digital Village</span>. Made
+          for us, by us.
         </span>
         <span>Simple technology for a better village life.</span>
       </div>
@@ -758,6 +770,7 @@ function Footer() {
   );
 }
 
+/* ===== Scroll To Top Button ===== */
 function ScrollTopButton() {
   const [visible, setVisible] = useState(false);
 
@@ -784,8 +797,10 @@ function ScrollTopButton() {
   );
 }
 
+/* ===== Help Modal ===== */
 function HelpModal({ open, onClose }) {
   const [copied, setCopied] = useState(false);
+
   if (!open) return null;
 
   const text =
@@ -914,21 +929,26 @@ function HelpModal({ open, onClose }) {
   );
 }
 
+/* ===== Floating Help Button ===== */
 function HelpFab({ onClick }) {
   return (
     <div className="help-fab" onClick={onClick}>
-      <span>
-        <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
-          <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.72 11.72 0 003.67.59 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.67 1 1 0 01-.24 1.01l-2.23 2.11z" />
-        </svg>
-      </span>
+    <span>
+      <svg
+        width="20"
+        height="20"
+        fill="white"
+        viewBox="0 0 24 24"
+      >
+        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.72 11.72 0 003.67.59 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.67 1 1 0 01-.24 1.01l-2.23 2.11z" />
+      </svg>
+    </span>
       <span>Help</span>
     </div>
   );
 }
 
 /* ===== ROOT APP ===== */
-
 function App() {
   const [helpOpen, setHelpOpen] = useState(false);
   const [lang, setLang] = useState("en");
@@ -945,13 +965,13 @@ function App() {
       <UpdatesBar lang={lang} />
       <Hero lang={lang} />
 
-      {/* Sections that navbar scrolls to */}
-      <EducationSection lang={lang} />
-      <HealthSection lang={lang} />
+      {/* Education / Govt / Health cards */}
       <CategoriesSection
         lang={lang}
         onCategorySelect={setSelectedCategory}
       />
+
+      {/* New Market & Payment sections */}
       <MarketSection />
       <PaymentSection />
 
