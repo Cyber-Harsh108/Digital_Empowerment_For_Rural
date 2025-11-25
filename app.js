@@ -307,7 +307,8 @@ function UpdatesBar({ lang }) {
   );
 }
 
-function Hero({ lang }) {
+/* HERO NOW ACCEPTS onStartUsing & onHowTo */
+function Hero({ lang, onStartUsing, onHowTo }) {
   const t = translations[lang] || translations["en"];
   return (
     <section className="hero">
@@ -328,11 +329,11 @@ function Hero({ lang }) {
         </div>
 
         <div className="hero-buttons">
-          <button className="btn-primary">
+          <button className="btn-primary" onClick={onStartUsing}>
             <span className="btn-icon">⚡</span>
             Start Using Now →
           </button>
-          <button className="btn-ghost">
+          <button className="btn-ghost" onClick={onHowTo}>
             <span className="btn-icon">📘</span>
             How to Use
           </button>
@@ -418,7 +419,7 @@ function CategoriesSection({ lang, onCategorySelect }) {
   );
 }
 
-/* ===== NEW: Market Section (card opens modal with many links) ===== */
+/* ===== Market Section (card opens modal with many links) ===== */
 function MarketSection({ onCategorySelect }) {
   return (
     <section id="market" className="categories-section">
@@ -447,7 +448,7 @@ function MarketSection({ onCategorySelect }) {
   );
 }
 
-/* ===== NEW: Payment Section (card opens modal with PhonePe/BHIM/SBI) ===== */
+/* ===== Payment Section (card opens modal with PhonePe/BHIM/SBI) ===== */
 function PaymentSection({ onCategorySelect }) {
   return (
     <section id="payment" className="categories-section">
@@ -812,6 +813,199 @@ function ScrollTopButton() {
   );
 }
 
+/* ===== Services Dashboard Modal (from working file) ===== */
+function ServicesDashboardModal({
+  open,
+  onClose,
+  onSelectCategory,
+  lang,
+}) {
+  if (!open) return null;
+  const t = translations[lang] || translations["en"];
+  const cats = [
+    { key: "education", label: t.edu, icon: "📚" },
+    { key: "govt-services", label: t.govt, icon: "🏛" },
+    { key: "healthcare", label: t.health, icon: "🩺" },
+  ];
+
+  return (
+    <div className="help-backdrop" onClick={onClose}>
+      <div
+        className="help-dialog"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="help-dialog-header">
+          <h3 className="help-dialog-title">Services Dashboard</h3>
+          <button className="help-close-btn" onClick={onClose}>
+            ✕
+          </button>
+        </div>
+
+        <div className="help-dialog-body">
+          <p
+            style={{
+              color: "var(--text-muted)",
+              marginTop: 0,
+              fontSize: "0.9rem",
+            }}
+          >
+            Choose a service to open quick links or learn more.
+          </p>
+          <div className="card-grid" style={{ marginTop: "0.6rem" }}>
+            {cats.map((c) => {
+              const data = categoryData[c.key];
+              return (
+                <div
+                  key={c.key}
+                  className="card"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    onSelectCategory(c.key);
+                    onClose();
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: "0.6rem",
+                      alignItems: "center",
+                    }}
+                  >
+                    <div style={{ fontSize: "1.4rem" }}>{c.icon}</div>
+                    <div>
+                      <div
+                        style={{
+                          fontWeight: 800,
+                          color: "#047857",
+                          fontSize: "0.98rem",
+                        }}
+                      >
+                        {data.title}
+                      </div>
+                      <div
+                        style={{
+                          color: "#64748b",
+                          fontSize: "0.88rem",
+                        }}
+                      >
+                        {data.description}
+                      </div>
+                      <div
+                        style={{
+                          marginTop: "0.5rem",
+                          display: "flex",
+                          gap: "0.4rem",
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        {data.options.slice(0, 2).map((o, i) => (
+                          <a
+                            key={i}
+                            href={o.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn-ghost"
+                            style={{
+                              textDecoration: "none",
+                              padding: "0.36rem 0.6rem",
+                              fontSize: "0.8rem",
+                            }}
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            {o.title}
+                          </a>
+                        ))}
+                        <button
+                          className="btn-ghost"
+                          style={{
+                            padding: "0.36rem 0.6rem",
+                            fontSize: "0.8rem",
+                          }}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onSelectCategory(c.key);
+                            onClose();
+                          }}
+                        >
+                          More ↗
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===== How To Use Modal (from working file) ===== */
+function HowToUseModal({ open, onClose, lang }) {
+  if (!open) return null;
+  const t = translations[lang] || translations["en"];
+  return (
+    <div className="help-backdrop" onClick={onClose}>
+      <div
+        className="help-dialog"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="help-dialog-header">
+          <h3 className="help-dialog-title">How to Use</h3>
+          <button className="help-close-btn" onClick={onClose}>
+            ✕
+          </button>
+        </div>
+
+        <div className="help-dialog-body">
+          <ol
+            style={{
+              paddingLeft: "1rem",
+              color: "#64748b",
+              fontSize: "0.9rem",
+            }}
+          >
+            <li style={{ marginBottom: "0.6rem" }}>
+              <strong>Step 1 — Create Your Profile:</strong> Enter name,
+              village & mobile number to save your settings.
+            </li>
+            <li style={{ marginBottom: "0.6rem" }}>
+              <strong>Step 2 — Pick a Service:</strong> Tap "Start Using
+              Now" and choose Education, Benefits or Health.
+            </li>
+            <li style={{ marginBottom: "0.6rem" }}>
+              <strong>Step 3 — Use Tools:</strong> Open the quick links to
+              apply, consult, or download documents.
+            </li>
+            <li style={{ marginBottom: "0.6rem" }}>
+              <strong>Step 4 — Get Notifications:</strong> Turn on
+              SMS/phone alerts to know when money or schemes arrive.
+            </li>
+          </ol>
+          <div
+            style={{
+              marginTop: "0.8rem",
+              color: "#64748b",
+              fontSize: "0.88rem",
+            }}
+          >
+            Tip: Ask a neighbor or the local volunteer if you need help —
+            this portal is for everyone.
+          </div>
+        </div>
+
+        <div className="help-actions">
+          <button className="help-close-bottom" onClick={onClose}>
+            Got it
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ===== Help Modal ===== */
 function HelpModal({ open, onClose }) {
   const [copied, setCopied] = useState(false);
@@ -970,6 +1164,10 @@ function App() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loginOpen, setLoginOpen] = useState(false);
 
+  // NEW: dashboard + how-to modal state
+  const [dashboardOpen, setDashboardOpen] = useState(false);
+  const [howToOpen, setHowToOpen] = useState(false);
+
   return (
     <div>
       <Navbar
@@ -978,7 +1176,11 @@ function App() {
         onLogin={() => setLoginOpen(true)}
       />
       <UpdatesBar lang={lang} />
-      <Hero lang={lang} />
+      <Hero
+        lang={lang}
+        onStartUsing={() => setDashboardOpen(true)}
+        onHowTo={() => setHowToOpen(true)}
+      />
 
       {/* Education / Govt / Health cards */}
       <CategoriesSection
@@ -986,7 +1188,7 @@ function App() {
         onCategorySelect={setSelectedCategory}
       />
 
-      {/* New Market & Payment sections */}
+      {/* Market & Payment sections */}
       <MarketSection onCategorySelect={setSelectedCategory} />
       <PaymentSection onCategorySelect={setSelectedCategory} />
 
@@ -1007,6 +1209,19 @@ function App() {
       <LoginModal
         open={loginOpen}
         onClose={() => setLoginOpen(false)}
+      />
+
+      {/* NEW MODALS */}
+      <ServicesDashboardModal
+        open={dashboardOpen}
+        onClose={() => setDashboardOpen(false)}
+        onSelectCategory={(cat) => setSelectedCategory(cat)}
+        lang={lang}
+      />
+      <HowToUseModal
+        open={howToOpen}
+        onClose={() => setHowToOpen(false)}
+        lang={lang}
       />
     </div>
   );
