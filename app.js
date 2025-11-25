@@ -1,96 +1,197 @@
-  const { useState, useEffect } = React;
+const { useState, useEffect } = React;
 
-      /* ===== NAVBAR + UPDATES ===== */
+      /* ===== TRANSLATIONS (Villager Persona) ===== */
+      const translations = {
+        en: {
+          title: "My Digital Village",
+          subtitle: "My Connection to the World",
+          govt: "My Benefits",
+          health: "My Health",
+          edu: "My Education",
+          login: "My Login",
+          updates: "Village News",
+          hero_eyebrow: "No More Barriers",
+          hero_title: "I access the world from my village home.",
+          hero_tagline: "I don't need to travel to the city anymore. With this portal, I manage my farm, my children's schooling, and my family's health right from here.",
+          explore: "Services I Use Daily",
+          explore_sub: "Quick links to the things that matter most to me and my neighbors.",
+          why_matters: "How This Changed My Life",
+          pledge: "How I Will Help My Neighbors",
+          submit: "I Promise to Help"
+        },
+        hi: {
+          title: "मेरा डिजिटल गाँव",
+          subtitle: "दुनिया से मेरा जुड़ाव",
+          govt: "मेरे लाभ",
+          health: "मेरा स्वास्थ्य",
+          edu: "मेरी शिक्षा",
+          login: "लॉग इन",
+          updates: "गाँव की खबरें",
+          hero_eyebrow: "अब कोई बाधा नहीं",
+          hero_title: "मैं अपने गाँव के घर से दुनिया तक पहुँचता हूँ।",
+          hero_tagline: "अब मुझे शहर जाने की जरूरत नहीं है। इस पोर्टल के साथ, मैं अपनी खेती, बच्चों की पढ़ाई और परिवार के स्वास्थ्य का ध्यान यहीं से रख सकता हूँ।",
+          explore: "सेवाएँ जो मैं रोज उपयोग करता हूँ",
+          explore_sub: "उन चीजों के त्वरित लिंक जो मेरे और मेरे पड़ोसियों के लिए सबसे महत्वपूर्ण हैं।",
+          why_matters: "इसने मेरा जीवन कैसे बदला",
+          pledge: "मैं अपने पड़ोसियों की मदद कैसे करूँगा",
+          submit: "मैं मदद करने का वादा करता हूँ"
+        },
+        ta: {
+          title: "எனது டிஜிட்டல் கிராமம்",
+          subtitle: "உலகத்துடனான எனது இணைப்பு",
+          govt: "எனது நன்மைகள்",
+          health: "எனது சுகாதாரம்",
+          edu: "எனது கல்வி",
+          login: "உள்நுழைய",
+          updates: "கிராம செய்திகள்",
+          hero_eyebrow: "இனி தடைகள் இல்லை",
+          hero_title: "எனது கிராம வீட்டில் இருந்தே உலகத்தை அணுகுகிறேன்.",
+          hero_tagline: "இனி நான் நகரத்திற்குச் செல்ல வேண்டியதில்லை. இந்த இணையதளம் மூலம், எனது விவசாயம், குழந்தைகளின் கல்வி மற்றும் குடும்ப நலனை இங்கிருந்தே கவனித்துக்கொள்கிறேன்.",
+          explore: "நான் தினமும் பயன்படுத்தும் சேவைகள்",
+          explore_sub: "எனக்கும் எனது அண்டை வீட்டாருக்கும் முக்கியமான சேவைகளுக்கான இணைப்புகள்.",
+          why_matters: "இது என் வாழ்க்கையை எப்படி மாற்றியது",
+          pledge: "எனது அண்டை வீட்டாருக்கு நான் எப்படி உதவுவேன்",
+          submit: "உதவுவதாக உறுதியளிக்கிறேன்"
+        },
+        te: {
+          title: "నా డిజిటల్ గ్రామం",
+          subtitle: "ప్రపంచంతో నా అనుసంధానం",
+          govt: "నా ప్రయోజనాలు",
+          health: "నా ఆరోగ్యం",
+          edu: "నా చదువు",
+          login: "లాగిన్",
+          updates: "గ్రామ వార్తలు",
+          hero_eyebrow: "ఇక అడ్డంకులు లేవు",
+          hero_title: "నా గ్రామం నుండే ప్రపంచాన్ని పొందుతున్నాను.",
+          hero_tagline: "నేను ఇక నగరానికి వెళ్లాల్సిన అవసరం లేదు. ఈ పోర్టల్ ద్వారా, నా వ్యవసాయం, పిల్లల చదువులు మరియు కుటుంబ ఆరోగ్యాన్ని ఇక్కడి నుండే చూసుకుంటాను.",
+          explore: "నేను రోజువారీ ఉపయోగించే సేవలు",
+          explore_sub: "నాకు మరియు నా ఇరుగుపొరుగు వారికి ముఖ్యమైన సేవలకు లింకులు.",
+          why_matters: "ఇది నా జీవితాన్ని ఎలా మార్చింది",
+          pledge: "నా ఇరుగుపొరుగు వారికి నేను ఎలా సహాయం చేస్తాను",
+          submit: "సహాయం చేస్తానని మాటిస్తున్నాను"
+        }
+      };
 
-      function Navbar() {
+      /* ===== CATEGORY DATA WITH REAL LINKS (Villager Persona) ===== */
+      const categoryData = {
+        education: {
+          title: "Education for My Kids",
+          icon: "📚",
+          description: "Giving our village children the same chances as city kids.",
+          options: [
+            { title: "SWAYAM (Free Courses)", desc: "My son learns computers for free here.", url: "https://swayam.gov.in/" },
+            { title: "National Scholarship Portal", desc: "I applied for my daughter's scholarship easily.", url: "https://scholarships.gov.in/" },
+            { title: "PM e-VIDYA / DIKSHA", desc: "School books are now on my phone.", url: "https://diksha.gov.in/" }
+          ]
+        },
+        "govt-services": {
+          title: "My Rights & Schemes",
+          icon: "🏛",
+          description: "Getting my benefits without paying agents or traveling far.",
+          options: [
+            { title: "UIDAI (Aadhaar)", desc: "I updated my address without going to the district office.", url: "https://uidai.gov.in/" },
+            { title: "PM-Kisan Portal", desc: "I check if my farming installment has arrived.", url: "https://pmkisan.gov.in/" },
+            { title: "UMANG / DigiLocker", desc: "All my important papers are safe here.", url: "https://web.umang.gov.in/" }
+          ]
+        },
+        healthcare: {
+          title: "Health for My Family",
+          icon: "🩺",
+          description: "Talking to big doctors without leaving the village.",
+          options: [
+            { title: "eSanjeevani OPD", desc: "The doctor saw my mother on video call.", url: "https://esanjeevaniopd.in/" },
+            { title: "Ayushman Bharat (PMJAY)", desc: "I checked if my family is covered for free treatment.", url: "https://pmjay.gov.in/" },
+            { title: "Co-WIN / Health ID", desc: "I keep my vaccination records here.", url: "https://healthid.ndhm.gov.in/" }
+          ]
+        }
+      };
+
+      /* ===== COMPONENTS ===== */
+
+      function Navbar({ lang, setLang, onLogin }) {
+        const t = translations[lang] || translations['en'];
         return (
           <nav className="navbar fade-in">
             <div className="navbar-left">
-              <div className="navbar-logo-icon">DE</div>
+              <div className="navbar-logo-icon">DV</div>
               <div className="navbar-logo-text">
-                <span className="navbar-logo-main">Digital Empowerment</span>
+                <span className="navbar-logo-main">{t.title}</span>
                 <span className="navbar-logo-sub">
-                  RuralConnect • Internet Access
+                  {t.subtitle}
                 </span>
               </div>
             </div>
             <div className="nav-links">
-              <a href="#govt-services">Government Services</a>
-              <a href="#healthcare">Healthcare</a>
               <a href="#education">Education</a>
-              <a href="#faq">FAQs</a>
-              <button className="nav-login-btn">Login</button>
+              <a href="#health">Health</a>
+              <a href="#services">Services</a>
+              <a href="#market">Market</a>
+              <a href="#payment">Payment</a>
+              <select 
+                className="nav-select" 
+                value={lang} 
+                onChange={(e) => setLang(e.target.value)}
+              >
+                <option value="en">English</option>
+                <option value="hi">हिंदी (Hindi)</option>
+                <option value="ta">தமிழ் (Tamil)</option>
+                <option value="te">తెలుగు (Telugu)</option>
+              </select>
+              <button className="nav-login-btn" onClick={onLogin}>{t.login}</button>
             </div>
           </nav>
         );
       }
 
-      function UpdatesBar() {
+      function UpdatesBar({ lang }) {
+        const t = translations[lang] || translations['en'];
         return (
           <div className="updates-bar">
             <div className="updates-label">
               <span>🔔</span>
-              <span>Updates</span>
+              <span>{t.updates}</span>
             </div>
             <div className="updates-marquee">
               <div className="updates-text">
-                • New digital literacy centres opening in 50 villages next month.&nbsp;&nbsp;• Government announces
-                subsidies for smartphone purchases for rural households.&nbsp;&nbsp;• Over 500 villages connected to
-                high-speed internet this month.
+                • Panchayat meeting about new water pump tomorrow at 10 AM.&nbsp;&nbsp;• New seeds available at the co-op society.&nbsp;&nbsp;• Free eye checkup camp at the primary school this Sunday.
               </div>
             </div>
           </div>
         );
       }
 
-      /* ===== HERO (content from website1) ===== */
-
-      function Hero() {
-        const handleCta = (id) => {
-          alert("CTA clicked: " + id);
-        };
-
+      function Hero({ lang }) {
+        const t = translations[lang] || translations['en'];
         return (
           <section className="hero">
             <div className="hero-left">
-              <span className="hero-eyebrow">Bridging the Digital Divide</span>
+              <span className="hero-eyebrow">{t.hero_eyebrow}</span>
               <h1 className="hero-title">
-                Empowering Rural India
-                <br />
-                Through <span>Digital Access</span>
+                {t.hero_title}
               </h1>
               <p className="hero-tagline">
-                Connecting villages to essential services, education, healthcare and
-                market information through simplified technology.
+                {t.hero_tagline}
               </p>
 
               <div className="hero-metric-row">
                 <div className="hero-metric">
-                  <strong>Government services</strong>
-                  Aadhaar, PM-Kisan, pension and schemes available without travelling to
-                  town again and again.
+                  <strong>{t.govt}</strong>
+                  I check my pension and land records instantly. No more waiting in lines.
                 </div>
                 <div className="hero-metric">
-                  <strong>Daily life</strong>
-                  Online classes, telemedicine and digital payments become part of normal
-                  village routines.
+                  <strong>{t.edu}</strong>
+                  My children attend extra classes online and learn English.
                 </div>
               </div>
 
               <div className="hero-buttons">
-                <button
-                  className="btn-primary"
-                  onClick={() => handleCta("get-started")}
-                >
+                <button className="btn-primary">
                   <span className="btn-icon">⚡</span>
-                  Get Started →
+                  Start Using Now →
                 </button>
-                <button
-                  className="btn-ghost"
-                  onClick={() => handleCta("learn-more")}
-                >
+                <button className="btn-ghost">
                   <span className="btn-icon">📘</span>
-                  Learn More
+                  How to Use
                 </button>
               </div>
             </div>
@@ -98,23 +199,20 @@
             <div className="hero-right">
               <div className="hero-right-inner">
                 <div className="hero-chip">
-                  <span>🌾</span> Community internet snapshot
+                  <span>🌾</span> My Village Snapshot
                 </div>
                 <p style={{ fontSize: "0.88rem", color: "#064e3b" }}>
-                  A strong connection plus basic digital skills can turn a village phone
-                  into a classroom, a bank counter and a clinic — all in one.
+                  "Since I learned to use this on my phone, I save Rs. 200 every month that I used to spend on bus tickets to the town."
                 </p>
                 <div className="hero-visual-box">
                   <div className="hero-visual-title">
-                    What changes when a village goes online?
+                    How my life changed:
                   </div>
                   <ul className="hero-visual-list">
-                    <li>Students join online classes and exam prep groups.</li>
-                    <li>Farmers check crop prices and weather before selling.</li>
-                    <li>Families pay bills and receive benefits digitally.</li>
-                    <li>
-                      Health workers consult doctors through telemedicine when needed.
-                    </li>
+                    <li>My daughter prepares for exams online.</li>
+                    <li>I check mandi prices before harvesting my crop.</li>
+                    <li>We receive our government money directly in the bank.</li>
+                    <li>The city doctor speaks to us on video call.</li>
                   </ul>
                 </div>
               </div>
@@ -123,70 +221,40 @@
         );
       }
 
-      /* ===== CATEGORIES (Education / Govt / Healthcare) ===== */
-
-      function CategoriesSection() {
-        const handleCardClick = (anchor) => {
-          const el = document.getElementById(anchor);
-          if (!el) return;
-          const y =
-            el.getBoundingClientRect().top + window.pageYOffset - 70;
-          window.scrollTo({ top: y, behavior: "smooth" });
-        };
-
+      function CategoriesSection({ lang, onCategorySelect }) {
+        const t = translations[lang] || translations['en'];
+        
         return (
-          <section className="categories-section">
+          <section id="categories" className="categories-section">
             <div>
-              <h3 className="categories-header-title">Explore by category</h3>
+              <h3 className="categories-header-title">{t.explore}</h3>
               <p className="categories-header-text">
-                Quick links to the most requested services and resources for rural
-                users.
+                {t.explore_sub}
               </p>
             </div>
 
             <div className="category-grid">
-              <div
-                id="education-card"
-                className="category-card"
-                onClick={() => handleCardClick("education")}
-              >
+              <div className="category-card" onClick={() => onCategorySelect("education")}>
                 <div className="category-icon">📚</div>
                 <div>
-                  <h4 className="category-title">Education</h4>
-                  <p className="category-text">
-                    Digital classrooms, scholarship portals and open courses for rural
-                    students.
-                  </p>
+                  <h4 className="category-title">{t.edu}</h4>
+                  <p className="category-text">Scholarships, books, and classes for our kids.</p>
                 </div>
               </div>
 
-              <div
-                id="govt-services-card"
-                className="category-card"
-                onClick={() => handleCardClick("govt-services")}
-              >
+              <div className="category-card" onClick={() => onCategorySelect("govt-services")}>
                 <div className="category-icon">🏛</div>
                 <div>
-                  <h4 className="category-title">Government Services</h4>
-                  <p className="category-text">
-                    Aadhaar, PM-Kisan, pension, ration and other key portals in one
-                    organised place.
-                  </p>
+                  <h4 className="category-title">{t.govt}</h4>
+                  <p className="category-text">Aadhaar, Ration, and Kisan money status.</p>
                 </div>
               </div>
 
-              <div
-                id="healthcare-card"
-                className="category-card"
-                onClick={() => handleCardClick("healthcare")}
-              >
+              <div className="category-card" onClick={() => onCategorySelect("healthcare")}>
                 <div className="category-icon">🩺</div>
                 <div>
-                  <h4 className="category-title">Healthcare</h4>
-                  <p className="category-text">
-                    Telemedicine, Ayushman Bharat links and local health camp
-                    schedules.
-                  </p>
+                  <h4 className="category-title">{t.health}</h4>
+                  <p className="category-text">Doctor consultation and Ayushman cards.</p>
                 </div>
               </div>
             </div>
@@ -194,189 +262,124 @@
         );
       }
 
-      /* ===== SIMPLE DETAIL SECTIONS FOR EACH CATEGORY ===== */
+      function CategoryModal({ category, onClose }) {
+        if (!category) return null;
+        const data = categoryData[category];
 
-      function DetailSections() {
         return (
-          <div>
-            <section id="education" className="section fade-in">
-              <div className="section-header">
-                <p className="section-kicker">Education</p>
-                <h2 className="section-title">Digital learning for every student</h2>
-                <p className="section-subtitle">
-                  When internet is available and affordable, even remote schools can
-                  give students access to recorded lectures, doubt-clearing sessions
-                  and exam preparation content.
-                </p>
+          <div className="help-backdrop" onClick={onClose}>
+            <div className="help-dialog" onClick={(e) => e.stopPropagation()}>
+              <div className="help-dialog-header">
+                <div style={{display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+                  <span style={{fontSize: '1.5rem'}}>{data.icon}</span>
+                  <div>
+                    <h3 className="help-dialog-title" style={{fontSize: '1.2rem'}}>{data.title}</h3>
+                    <span style={{fontSize: '0.8rem', color: '#64748b'}}>{data.description}</span>
+                  </div>
+                </div>
+                <button className="help-close-btn" onClick={onClose}>✕</button>
               </div>
-              <div className="card-grid">
-                <div className="card">
-                  <h3>Online classrooms</h3>
-                  <p>
-                    Simple low-data classrooms using recorded lessons and live audio
-                    sessions scheduled in the evenings when students are free.
-                  </p>
-                </div>
-                <div className="card">
-                  <h3>Scholarships &amp; exams</h3>
-                  <p>
-                    Help desks guide students through online forms for scholarships,
-                    competitive exams and college admissions.
-                  </p>
-                </div>
-                <div className="card">
-                  <h3>Community study hubs</h3>
-                  <p>
-                    One Wi-Fi router at a school or community hall can support dozens
-                    of students downloading content for offline study.
-                  </p>
+              
+              <div className="help-dialog-body">
+                <div className="card-grid" style={{gridTemplateColumns: '1fr'}}>
+                  {data.options.map((opt, idx) => (
+                    <div key={idx} className="card" style={{padding: '0.9rem', border: '1px solid #e2e8f0', boxShadow: 'none', background: '#f8fafc'}}>
+                      <h4 style={{fontSize: '1rem', marginBottom: '0.3rem', color: '#047857'}}>{opt.title}</h4>
+                      <p style={{fontSize: '0.85rem'}}>{opt.desc}</p>
+                      <a 
+                        href={opt.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="btn-primary" 
+                        style={{marginTop: '0.8rem', padding: '0.4rem 0.8rem', fontSize: '0.8rem', textDecoration: 'none', display: 'inline-block'}}
+                      >
+                        Open Website ↗
+                      </a>
+                    </div>
+                  ))}
                 </div>
               </div>
-            </section>
-
-            <section id="govt-services" className="section fade-in delay-1">
-              <div className="section-header">
-                <p className="section-kicker">Government services</p>
-                <h2 className="section-title">
-                  Access to schemes without long travel
-                </h2>
-                <p className="section-subtitle">
-                  Internet plus guidance means villagers can claim the benefits already
-                  meant for them — without losing wages in travelling to offices.
-                </p>
-              </div>
-              <div className="card-grid">
-                <div className="card">
-                  <h3>Aadhaar &amp; ID updates</h3>
-                  <p>
-                    Basic corrections, downloads and status checks handled at village
-                    kiosks with secure logins.
-                  </p>
-                </div>
-                <div className="card">
-                  <h3>Farmer schemes</h3>
-                  <p>
-                    PM-Kisan registration, land record viewing and insurance claims
-                    filed digitally with local assistance.
-                  </p>
-                </div>
-                <div className="card">
-                  <h3>Social security</h3>
-                  <p>
-                    Pension, ration and other entitlement checks done on phone instead
-                    of multiple counter visits.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            <section id="healthcare" className="section fade-in delay-2">
-              <div className="section-header">
-                <p className="section-kicker">Healthcare</p>
-                <h2 className="section-title">Telemedicine and health support</h2>
-                <p className="section-subtitle">
-                  Stable internet enables health workers and families to contact
-                  doctors quickly and follow reliable advice instead of rumours.
-                </p>
-              </div>
-              <div className="card-grid">
-                <div className="card">
-                  <h3>Tele-consultation</h3>
-                  <p>
-                    Village health workers connect patients to doctors over video or
-                    audio calls for initial guidance.
-                  </p>
-                </div>
-                <div className="card">
-                  <h3>Ayushman Bharat &amp; schemes</h3>
-                  <p>
-                    People can check eligibility, empanelled hospitals and claim
-                    status online without agents.
-                  </p>
-                </div>
-                <div className="card">
-                  <h3>Health awareness</h3>
-                  <p>
-                    Verified videos and infographics shared through village WhatsApp
-                    groups in local language.
-                  </p>
-                </div>
-              </div>
-            </section>
+            </div>
           </div>
         );
       }
 
-      /* ===== WHY DIGITAL EMPOWERMENT MATTERS (centered block) ===== */
+      function LoginModal({ open, onClose }) {
+        if (!open) return null;
+        const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-      function EmpowermentSection() {
+        const handleLogin = (e) => {
+            e.preventDefault();
+            setIsLoggedIn(true);
+        }
+
+        return (
+          <div className="help-backdrop" onClick={onClose}>
+            <div className="help-dialog" onClick={(e) => e.stopPropagation()} style={{maxWidth: '400px'}}>
+              <div className="help-dialog-header">
+                <h3 className="help-dialog-title">{isLoggedIn ? "Namaste, Villager!" : "My Village Login"}</h3>
+                <button className="help-close-btn" onClick={onClose}>✕</button>
+              </div>
+              
+              <div className="help-dialog-body">
+                {isLoggedIn ? (
+                    <div style={{textAlign: 'center', padding: '1rem'}}>
+                        <div style={{fontSize: '3rem', marginBottom: '1rem'}}>🙏</div>
+                        <p>Welcome back, <strong>Ramesh Kumar</strong>.</p>
+                        <p style={{fontSize: '0.9rem', color: '#64748b', marginTop: '0.5rem'}}>
+                            Village: Rampur | District: Varanasi
+                        </p>
+                        <div style={{marginTop: '1.5rem', padding: '1rem', background: '#f0fdf4', borderRadius: '0.5rem'}}>
+                            <strong>My Updates:</strong><br/>
+                            <span style={{fontSize: '0.85rem'}}>• PM-Kisan Installment: Received</span><br/>
+                            <span style={{fontSize: '0.85rem'}}>• Ration Card: Active</span>
+                        </div>
+                        <button 
+                            className="btn-ghost" 
+                            style={{marginTop: '1.5rem', width: '100%'}}
+                            onClick={() => setIsLoggedIn(false)}
+                        >
+                            Logout
+                        </button>
+                    </div>
+                ) : (
+                    <form onSubmit={handleLogin}>
+                        <p style={{fontSize: '0.85rem', color: '#64748b', marginBottom: '1rem'}}>
+                            Enter your phone number to access your village services.
+                        </p>
+                        <div className="form-group">
+                            <label>Mobile Number</label>
+                            <input type="text" placeholder="98765xxxxx" required />
+                        </div>
+                        <div className="form-group">
+                            <label>PIN</label>
+                            <input type="password" placeholder="****" required />
+                        </div>
+                        <button type="submit" className="btn-primary" style={{width: '100%', justifyContent: 'center'}}>
+                            Enter My Dashboard
+                        </button>
+                    </form>
+                )}
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      function EmpowermentSection({ lang }) {
+        const t = translations[lang] || translations['en'];
         return (
           <section className="section empower-section">
-            <h3 className="empower-title">Why Digital Empowerment Matters</h3>
+            <h3 className="empower-title">{t.why_matters}</h3>
             <p className="empower-text">
-              Digital access increases economic opportunity, improves healthcare and
-              education, and strengthens community resilience. This platform combines
-              stronger internet connections with simple guidance so that every
-              villager — not just a few experts — can benefit from online services.
+              "Before this website, I had to travel 50km to the district headquarters just to get a signature or check a form status. I would lose a day's wage and spend money on the bus. Now, I do it all from my smartphone sitting under the village banyan tree. My children have the same study materials as city kids. We are no longer left behind. This is our power."
             </p>
           </section>
         );
       }
 
-      /* ===== FAQ & CONTACT (reused from earlier website 2, text adjusted slightly) ===== */
-
-      function FAQItem({ q, a }) {
-        const [open, setOpen] = useState(false);
-        return (
-          <div className="faq-item" onClick={() => setOpen(!open)}>
-            <div className="faq-question">
-              <h4>{q}</h4>
-              <div className="faq-toggle">{open ? "−" : "+"}</div>
-            </div>
-            {open && <div className="faq-answer">{a}</div>}
-          </div>
-        );
-      }
-
-      function FAQSection() {
-        const faqs = [
-          {
-            q: "Is fast internet the only solution?",
-            a: "No. Even with slow networks we can improve access by using offline content, community Wi-Fi hubs and planning downloads during low-traffic hours."
-          },
-          {
-            q: "What can students practically do?",
-            a: "Students can survey their village, help elders with smartphones, assist in filling online forms and present these findings as a project to ask for better connectivity."
-          },
-          {
-            q: "Do we always need expensive hardware?",
-            a: "Not always. Correct router placement, better antennas, shared connections and low-data apps can create big improvements at low cost."
-          },
-          {
-            q: "How can I show this as a school project?",
-            a: "Use this website as your front-end, attach survey data, and propose one pilot idea such as a study hub, farmer kiosk or digital help desk in your village."
-          }
-        ];
-
-        return (
-          <section id="faq" className="section fade-in">
-            <div className="section-header">
-              <p className="section-kicker">Quick answers</p>
-              <h2 className="section-title">Frequently asked questions</h2>
-              <p className="section-subtitle">
-                These explanations can be used directly in your project file or viva
-                when you talk about rural internet and digital empowerment.
-              </p>
-            </div>
-
-            {faqs.map((f, i) => (
-              <FAQItem key={i} q={f.q} a={f.a} />
-            ))}
-          </section>
-        );
-      }
-
-      function ContactSection() {
+      function ContactSection({ lang }) {
+        const t = translations[lang] || translations['en'];
         const [name, setName] = useState("");
         const [role, setRole] = useState("");
         const [idea, setIdea] = useState("");
@@ -394,27 +397,26 @@
         return (
           <section id="contact" className="section fade-in">
             <div className="section-header">
-              <p className="section-kicker">Your turn</p>
-              <h2 className="section-title">Share one action you can take</h2>
+              <p className="section-kicker">My Promise</p>
+              <h2 className="section-title">{t.pledge}</h2>
               <p className="section-subtitle">
-                Treat this form as your personal pledge. In a real system, these ideas
-                could be saved to a server or community dashboard.
+                "I know how to use this phone. I promise to help at least one person in my village who cannot read or write to use these services today."
               </p>
             </div>
 
             <div className="form-card">
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                  <label>Your name</label>
+                  <label>My Name</label>
                   <input
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your name"
+                    placeholder="Ramesh Kumar"
                     required
                   />
                 </div>
                 <div className="form-group">
-                  <label>You are a...</label>
+                  <label>I am a...</label>
                   <select
                     value={role}
                     onChange={(e) => setRole(e.target.value)}
@@ -425,30 +427,29 @@
                     <option value="teacher">Teacher</option>
                     <option value="farmer">Farmer</option>
                     <option value="shopkeeper">Shopkeeper</option>
-                    <option value="ngo">NGO / volunteer</option>
-                    <option value="other">Other</option>
+                    <option value="ngo">Volunteer</option>
+                    <option value="other">Villager</option>
                   </select>
                 </div>
                 <div className="form-group">
                   <label>
-                    One idea to improve digital access in your area
+                    How I will help someone today
                   </label>
                   <textarea
                     value={idea}
                     onChange={(e) => setIdea(e.target.value)}
-                    placeholder="Example: Start an evening study hub with shared Wi-Fi at our school..."
+                    placeholder="Example: I will help my neighbor check his pension status..."
                     required
                   />
                 </div>
                 <button type="submit" className="btn-primary">
-                  <span className="btn-icon">✅</span>
-                  Submit pledge (stored locally)
+                  <span className="btn-icon">🤝</span>
+                  {t.submit}
                 </button>
               </form>
               {submitted && (
                 <div className="success-msg">
-                  Your idea has been recorded in this session. Great first step toward
-                  bridging the rural digital gap! 🌾
+                  Thank you! Your promise makes our village stronger. 🌾
                 </div>
               )}
             </div>
@@ -456,21 +457,17 @@
         );
       }
 
-      /* ===== FOOTER & SCROLL TOP ===== */
-
       function Footer() {
         return (
           <footer className="footer">
             <div className="footer-inner">
               <span>
                 © {new Date().getFullYear()}{" "}
-                <span className="footer-highlight">Digital Empowerment · RuralConnect</span
-                >. Built as an educational project on low internet access and rural
-                digital inclusion.
+                <span className="footer-highlight">My Digital Village</span>
+                . Made for us, by us.
               </span>
               <span>
-                Frontend stack: HTML · CSS · JavaScript · React (CDN) — optimised for
-                low-data, mobile-friendly viewing.
+                Simple technology for a better village life.
               </span>
             </div>
           </footer>
@@ -499,8 +496,6 @@
         );
       }
 
-      /* ===== HELP BUTTON + MODAL (emergency contacts) ===== */
-
       function HelpModal({ open, onClose }) {
         const [copied, setCopied] = useState(false);
 
@@ -523,22 +518,22 @@
           <div className="help-backdrop" onClick={onClose}>
             <div className="help-dialog" onClick={(e) => e.stopPropagation()}>
               <div className="help-dialog-header">
-                <h3 className="help-dialog-title">Emergency Contacts</h3>
+                <h3 className="help-dialog-title">Emergency Numbers</h3>
                 <button className="help-close-btn" onClick={onClose}>
                   ✕
                 </button>
               </div>
               <p style={{ margin: "0 0 0.7rem", fontSize: "0.85rem", color: "#64748b" }}>
-                Tap a number on mobile to call directly, or copy the list for later use.
+                Tap to call instantly. Save these for emergencies.
               </p>
 
               <div className="help-dialog-body">
                 <ul className="help-list">
                   <li className="help-item">
                     <div>
-                      <span className="help-item-title">National Emergency</span>
+                      <span className="help-item-title">Emergency (All)</span>
                       <span className="help-item-sub">
-                        All-in-one emergency number
+                        For any big trouble
                       </span>
                     </div>
                     <a className="help-item-link" href="tel:112">
@@ -547,9 +542,9 @@
                   </li>
                   <li className="help-item">
                     <div>
-                      <span className="help-item-title">Police (State)</span>
+                      <span className="help-item-title">Police</span>
                       <span className="help-item-sub">
-                        Local police control room
+                        For safety help
                       </span>
                     </div>
                     <a className="help-item-link" href="tel:100">
@@ -559,7 +554,7 @@
                   <li className="help-item">
                     <div>
                       <span className="help-item-title">Ambulance</span>
-                      <span className="help-item-sub">Medical emergency</span>
+                      <span className="help-item-sub">For medical help</span>
                     </div>
                     <a className="help-item-link" href="tel:102">
                       102
@@ -568,7 +563,7 @@
                   <li className="help-item">
                     <div>
                       <span className="help-item-title">Fire</span>
-                      <span className="help-item-sub">Fire brigade</span>
+                      <span className="help-item-sub">For fire</span>
                     </div>
                     <a className="help-item-link" href="tel:101">
                       101
@@ -577,7 +572,7 @@
                   <li className="help-item">
                     <div>
                       <span className="help-item-title">Women Helpline</span>
-                      <span className="help-item-sub">Support and assistance</span>
+                      <span className="help-item-sub">For sisters/mothers</span>
                     </div>
                     <a className="help-item-link" href="tel:181">
                       181
@@ -586,7 +581,7 @@
                   <li className="help-item">
                     <div>
                       <span className="help-item-title">Child Helpline</span>
-                      <span className="help-item-sub">Missing/abuse reports</span>
+                      <span className="help-item-sub">For children</span>
                     </div>
                     <a className="help-item-link" href="tel:1098">
                       1098
@@ -597,7 +592,7 @@
 
               <div className="help-actions">
                 <button className="help-copy-btn" onClick={handleCopy}>
-                  {copied ? "Copied ✓" : "Copy all"}
+                  {copied ? "Copied ✓" : "Copy List"}
                 </button>
                 <button className="help-close-bottom" onClick={onClose}>
                   Close
@@ -609,33 +604,47 @@
       }
 
       function HelpFab({ onClick }) {
-        return (
-          <div className="help-fab" onClick={onClick}>
-            <span>📞</span>
-            <span>Help</span>
-          </div>
-        );
-      }
+  return (
+    <div className="help-fab" onClick={onClick}>
+      <span>
+        <svg
+          width="20"
+          height="20"
+          fill="white"
+          viewBox="0 0 24 24"
+        >
+          <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.72 11.72 0 003.67.59 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.67 1 1 0 01-.24 1.01l-2.23 2.11z" />
+        </svg>
+      </span>
+      <span>Help</span>
+    </div>
+  );
+}
+
 
       /* ===== ROOT APP ===== */
 
       function App() {
         const [helpOpen, setHelpOpen] = useState(false);
+        const [lang, setLang] = useState('en');
+        const [selectedCategory, setSelectedCategory] = useState(null);
+        const [loginOpen, setLoginOpen] = useState(false);
 
         return (
           <div>
-            <Navbar />
-            <UpdatesBar />
-            <Hero />
-            <CategoriesSection />
-            <DetailSections />
-            <EmpowermentSection />
-            <FAQSection />
-            <ContactSection />
+            <Navbar lang={lang} setLang={setLang} onLogin={() => setLoginOpen(true)} />
+            <UpdatesBar lang={lang} />
+            <Hero lang={lang} />
+            <CategoriesSection lang={lang} onCategorySelect={setSelectedCategory} />
+            <EmpowermentSection lang={lang} />
+            <ContactSection lang={lang} />
             <Footer />
             <ScrollTopButton />
             <HelpFab onClick={() => setHelpOpen(true)} />
+            
             <HelpModal open={helpOpen} onClose={() => setHelpOpen(false)} />
+            <CategoryModal category={selectedCategory} onClose={() => setSelectedCategory(null)} />
+            <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
           </div>
         );
       }
