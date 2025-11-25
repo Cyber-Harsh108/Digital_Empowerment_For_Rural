@@ -148,6 +148,54 @@ const categoryData = {
       },
     ],
   },
+
+  /* NEW: Market category for modal */
+  market: {
+    title: "My Village Market Websites",
+    icon: "🧺",
+    description: "Websites I use to check prices and find buyers for my crops.",
+    options: [
+      {
+        title: "e-NAM (Online Mandi)",
+        desc: "I see mandi prices for my crops before I decide to sell.",
+        url: "https://enam.gov.in/web/",
+      },
+      {
+        title: "WhatsApp Web",
+        desc: "I join local buyer and farmer groups for offers.",
+        url: "https://www.whatsapp.com/",
+      },
+      {
+        title: "Nearby Shops on Google Maps",
+        desc: "I find fertilizer, seed and tool shops near my village.",
+        url: "https://maps.google.com/",
+      },
+    ],
+  },
+
+  /* NEW: Payment category for modal */
+  payment: {
+    title: "My Digital Payment Apps",
+    icon: "📲",
+    description: "UPI and bank tools I use to send and receive money.",
+    options: [
+      {
+        title: "PhonePe",
+        desc: "I pay at shops and send money to family using PhonePe.",
+        url: "https://www.phonepe.com/",
+      },
+      {
+        title: "BHIM UPI",
+        desc: "I use BHIM app to send money directly from my bank account.",
+        url: "https://www.bhimupi.org.in/",
+      },
+      {
+        title: "SBI Net Banking",
+        desc: "I check balance and manage money using SBI Internet banking.",
+        url: "https://onlinesbi.sbi.bank.in/",
+      },
+    ],
+  },
 };
 
 /* ===== COMPONENTS ===== */
@@ -335,7 +383,7 @@ function CategoriesSection({ lang, onCategorySelect }) {
           <div>
             <h4 className="category-title">{t.edu}</h4>
             <p className="category-text">
-              Scholarships, books, and classes for our kids.
+              Tap to see websites for free courses and scholarships.
             </p>
           </div>
         </div>
@@ -348,7 +396,7 @@ function CategoriesSection({ lang, onCategorySelect }) {
           <div>
             <h4 className="category-title">{t.govt}</h4>
             <p className="category-text">
-              Aadhaar, Ration, and Kisan money status.
+              Tap to see websites for Aadhaar, ration and Kisan money.
             </p>
           </div>
         </div>
@@ -361,7 +409,7 @@ function CategoriesSection({ lang, onCategorySelect }) {
           <div>
             <h4 className="category-title">{t.health}</h4>
             <p className="category-text">
-              Doctor consultation and Ayushman cards.
+              Tap to see websites for online doctor and health schemes.
             </p>
           </div>
         </div>
@@ -370,44 +418,27 @@ function CategoriesSection({ lang, onCategorySelect }) {
   );
 }
 
-/* ===== NEW: Market Section (same layout as categories) ===== */
-function MarketSection() {
+/* ===== NEW: Market Section (card opens modal with many links) ===== */
+function MarketSection({ onCategorySelect }) {
   return (
     <section id="market" className="categories-section">
       <div>
         <h3 className="categories-header-title">My Village Market</h3>
         <p className="categories-header-text">
-          Places where I check prices and find buyers for my crops and products.
+          One place to see all the websites I use to check prices and buyers.
         </p>
       </div>
 
       <div className="category-grid">
-        <div className="category-card">
+        <div
+          className="category-card"
+          onClick={() => onCategorySelect("market")}
+        >
           <div className="category-icon">🧺</div>
           <div>
-            <h4 className="category-title">e-NAM (Online Mandi)</h4>
+            <h4 className="category-title">Market Websites</h4>
             <p className="category-text">
-              I see mandi prices for my crops before I decide to sell.
-            </p>
-          </div>
-        </div>
-
-        <div className="category-card">
-          <div className="category-icon">📱</div>
-          <div>
-            <h4 className="category-title">WhatsApp Buyer Groups</h4>
-            <p className="category-text">
-              I join local groups where traders and farmers share offers.
-            </p>
-          </div>
-        </div>
-
-        <div className="category-card">
-          <div className="category-icon">🛒</div>
-          <div>
-            <h4 className="category-title">Nearby Shops & Co-ops</h4>
-            <p className="category-text">
-              I compare prices of seeds, fertilizer and tools in nearby markets.
+              Tap to see e-NAM, WhatsApp and Maps links I use for my crops.
             </p>
           </div>
         </div>
@@ -416,45 +447,27 @@ function MarketSection() {
   );
 }
 
-/* ===== NEW: Payment Section (same layout, uses PhonePe) ===== */
-function PaymentSection() {
+/* ===== NEW: Payment Section (card opens modal with PhonePe/BHIM/SBI) ===== */
+function PaymentSection({ onCategorySelect }) {
   return (
     <section id="payment" className="categories-section">
       <div>
         <h3 className="categories-header-title">My Digital Payments</h3>
         <p className="categories-header-text">
-          Simple ways I send and receive money without going to the bank.
+          One place to see all the apps and bank websites I use for money.
         </p>
       </div>
 
       <div className="category-grid">
-        <div className="category-card">
+        <div
+          className="category-card"
+          onClick={() => onCategorySelect("payment")}
+        >
           <div className="category-icon">📲</div>
           <div>
-            <h4 className="category-title">PhonePe (UPI Payments)</h4>
+            <h4 className="category-title">Payment Apps & Banks</h4>
             <p className="category-text">
-              I pay at shops and send money to family using PhonePe on my phone.
-            </p>
-          </div>
-        </div>
-
-        <div className="category-card">
-          <div className="category-icon">💸</div>
-          <div>
-            <h4 className="category-title">BHIM / Other UPI Apps</h4>
-            <p className="category-text">
-              I use UPI ID or QR code to pay instantly from my bank account.
-            </p>
-          </div>
-        </div>
-
-        <div className="category-card">
-          <div className="category-icon">🏦</div>
-          <div>
-            <h4 className="category-title">Bank Passbook & ATM</h4>
-            <p className="category-text">
-              I still keep some cash and check my balance at the bank or ATM
-              when needed.
+              Tap to see PhonePe, BHIM and SBI Netbanking links.
             </p>
           </div>
         </div>
@@ -463,10 +476,12 @@ function PaymentSection() {
   );
 }
 
-/* ===== Category Modal ===== */
+/* ===== Category Modal (Education / Govt / Health / Market / Payment) ===== */
 function CategoryModal({ category, onClose }) {
   if (!category) return null;
   const data = categoryData[category];
+
+  if (!data) return null;
 
   return (
     <div className="help-backdrop" onClick={onClose}>
@@ -933,16 +948,16 @@ function HelpModal({ open, onClose }) {
 function HelpFab({ onClick }) {
   return (
     <div className="help-fab" onClick={onClick}>
-    <span>
-      <svg
-        width="20"
-        height="20"
-        fill="white"
-        viewBox="0 0 24 24"
-      >
-        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.72 11.72 0 003.67.59 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.67 1 1 0 01-.24 1.01l-2.23 2.11z" />
-      </svg>
-    </span>
+      <span>
+        <svg
+          width="20"
+          height="20"
+          fill="white"
+          viewBox="0 0 24 24"
+        >
+          <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.72 11.72 0 003.67.59 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1 11.72 11.72 0 00.59 3.67 1 1 0 01-.24 1.01l-2.23 2.11z" />
+        </svg>
+      </span>
       <span>Help</span>
     </div>
   );
@@ -972,8 +987,8 @@ function App() {
       />
 
       {/* New Market & Payment sections */}
-      <MarketSection />
-      <PaymentSection />
+      <MarketSection onCategorySelect={setSelectedCategory} />
+      <PaymentSection onCategorySelect={setSelectedCategory} />
 
       <EmpowermentSection lang={lang} />
       <ContactSection lang={lang} />
