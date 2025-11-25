@@ -1,662 +1,645 @@
+  const { useState, useEffect } = React;
 
-    const { useState, useEffect } = React;
+      /* ===== NAVBAR + UPDATES ===== */
 
-    const SOLUTION_DETAILS = {
-      infra: {
-        title: "1. Improve Community Infrastructure",
-        points: [
-          "Set up a shared Wi-Fi hotspot at the panchayat office, school, or community hall.",
-          "Use long-range Wi-Fi antennas to cover nearby hamlets and houses.",
-          "Install routers with battery backup or small solar panels to handle power cuts.",
-          "Support local entrepreneurs to run low-cost internet kiosks."
-        ]
-      },
-      software: {
-        title: "2. Use Offline-First Apps and Content",
-        points: [
-          "Download videos and notes for classes when the signal is strong (night or early morning).",
-          "Use apps that work even without full-time internet — note-taking, offline maps, SMS-based services.",
-          "Schools can store e-books and lectures on a local server inside the campus, no external internet needed."
-        ]
-      },
-      govt: {
-        title: "3. Make Use of Government Programs",
-        points: [
-          "Leverage schemes for rural broadband, CSCs and public Wi-Fi at schools or gram panchayat buildings.",
-          "Villagers can collectively request better connectivity from local officials using written applications.",
-          "Organise digital training camps under government or NGO support."
-        ]
-      },
-      community: {
-        title: "4. Build Local Digital Champions",
-        points: [
-          "Train a few students or youth as “Digital Champions” who help others with online forms, UPI and telemedicine.",
-          "Create small community groups to share data packs or Wi-Fi costs fairly.",
-          "Run a weekly “Digital Help Desk” at school or the community hall."
-        ]
-      }
-    };
-
-    /* ===== Components ===== */
-
-    function Navbar() {
-      return (
-        <nav className="navbar fade-in">
-          <div className="navbar-left">
-            <div className="navbar-logo-icon">RC</div>
-            <div className="navbar-logo-text">
-              <span className="navbar-logo-main">RuralConnect</span>
-              <span className="navbar-logo-sub">Internet for every village</span>
-            </div>
-          </div>
-          <div className="nav-links">
-            <a href="#problem">Problem</a>
-            <a href="#causes">Causes</a>
-            <a href="#solutions">Solutions</a>
-            <a href="#cases">Stories</a>
-            <a href="#resources">Resources</a>
-            <a href="#contact">Action</a>
-          </div>
-        </nav>
-      );
-    }
-
-    function Hero() {
-      return (
-        <section className="hero">
-          <div className="hero-left">
-            <div className="hero-badge">
-              <span className="hero-badge-dot" />
-              Rural Digital Inclusion Project
-            </div>
-            <h1 className="hero-title">
-              Bridging the <span>Internet Gap</span> in Rural Areas
-            </h1>
-            <p className="hero-tagline">
-              Slow or no internet keeps villages away from opportunities. RuralConnect
-              explains the problem in simple language and shows practical, low-cost ways
-              for students, teachers and local leaders to improve access.
-            </p>
-
-            <div className="hero-metric-row">
-              <div className="hero-metric">
-                <strong>Education</strong>
-                Online classes, scholarship forms and exams need stable internet.
-              </div>
-              <div className="hero-metric">
-                <strong>Livelihood</strong>
-                Farmers and shopkeepers rely on digital payments and market prices.
+      function Navbar() {
+        return (
+          <nav className="navbar fade-in">
+            <div className="navbar-left">
+              <div className="navbar-logo-icon">DE</div>
+              <div className="navbar-logo-text">
+                <span className="navbar-logo-main">Digital Empowerment</span>
+                <span className="navbar-logo-sub">
+                  RuralConnect • Internet Access
+                </span>
               </div>
             </div>
-
-            <div className="hero-buttons">
-              <a href="#solutions">
-                <button className="btn-primary">
-                  <span className="btn-icon">🌱</span>
-                  Explore Solutions
-                </button>
-              </a>
-              <a href="#problem">
-                <button className="btn-ghost">
-                  <span className="btn-icon">📊</span>
-                  Understand the Gap
-                </button>
-              </a>
+            <div className="nav-links">
+              <a href="#govt-services">Government Services</a>
+              <a href="#healthcare">Healthcare</a>
+              <a href="#education">Education</a>
+              <a href="#faq">FAQs</a>
+              <button className="nav-login-btn">Login</button>
             </div>
-          </div>
-
-          <div className="hero-right">
-            <div className="hero-right-inner">
-              <div className="hero-chip">
-                <span>🛰</span> Snapshot of rural connectivity
-              </div>
-              <p style={{ fontSize: "0.88rem", color: "#064e3b" }}>
-                Internet is a basic utility now: it connects villagers to teachers, doctors,
-                jobs and government schemes — but networks are weakest where people need
-                support the most.
-              </p>
-
-              <div className="hero-stats">
-                <div className="hero-stat-card">
-                  <div className="hero-stat-label">Key challenge</div>
-                  <div className="hero-stat-value">Unstable signal</div>
-                  <div className="hero-stat-foot">
-                    Calls drop, videos buffer and apps time-out during form filling.
-                  </div>
-                </div>
-                <div className="hero-stat-card">
-                  <div className="hero-stat-label">Main impact</div>
-                  <div className="hero-stat-value">Lost chances</div>
-                  <div className="hero-stat-foot">
-                    Students, farmers and small shops miss digital opportunities.
-                  </div>
-                </div>
-                <div className="hero-stat-card">
-                  <div className="hero-stat-label">Our focus</div>
-                  <div className="hero-stat-value">Affordable access</div>
-                  <div className="hero-stat-foot">
-                    Community Wi-Fi, offline content &amp; shared infrastructure.
-                  </div>
-                </div>
-                <div className="hero-stat-card">
-                  <div className="hero-stat-label">Approach</div>
-                  <div className="hero-stat-value">Step-by-step</div>
-                  <div className="hero-stat-foot">
-                    Start small, learn from feedback, then expand.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    function ProblemSection() {
-      return (
-        <section id="problem" className="section fade-in delay-1">
-          <div className="section-header">
-            <p className="section-kicker">Why this problem matters</p>
-            <h2 className="section-title">
-              The digital divide between cities and villages
-            </h2>
-            <p className="section-subtitle">
-              Rural families often pay a lot for mobile data but still cannot join online
-              classes or use government services comfortably. The result is a silent
-              disadvantage in education, health and income.
-            </p>
-          </div>
-
-          <div className="card-grid">
-            <div className="card">
-              <h3>1. Limited Network Infrastructure</h3>
-              <p>
-                Many villages have very few towers and no fibre cables. Signals become weak
-                as distance increases, so people are stuck with 2G or unstable 4G
-                connections.
-              </p>
-            </div>
-            <div className="card">
-              <h3>2. High Cost for Low Speed</h3>
-              <p>
-                Even when mobile data is available, the cost per GB is high compared to
-                rural income levels — and the speed is too low for video classes, online
-                exams or digital payments.
-              </p>
-            </div>
-            <div className="card">
-              <h3>3. Power Cuts &amp; Outages</h3>
-              <p>
-                Routers and towers need reliable electricity. In many villages, power cuts
-                are frequent, so even existing networks become unreliable exactly when they
-                are needed.
-              </p>
-            </div>
-            <div className="card">
-              <h3>4. Lack of Digital Confidence</h3>
-              <p>
-                Some people feel shy or afraid to use smartphones and online services
-                because they never received proper training. Low usage then reduces company
-                interest in investing locally.
-              </p>
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    function CausesSection() {
-      return (
-        <section id="causes" className="section fade-in delay-2">
-          <div className="section-header">
-            <p className="section-kicker">Digging deeper</p>
-            <h2 className="section-title">Root causes of poor connectivity</h2>
-            <p className="section-subtitle">
-              Understanding why the problem exists helps us design solutions that are
-              realistic for villages with limited money and tough geography.
-            </p>
-          </div>
-
-          <div className="card-grid">
-            <div className="card">
-              <h3>Geographical Challenges</h3>
-              <p>
-                Hilly regions, rivers and scattered houses make it costly to lay cables or
-                install enough towers. Heavy rain and storms also damage equipment.
-              </p>
-              <div className="tag-list">
-                <span className="tag">Hills</span>
-                <span className="tag">Forests</span>
-                <span className="tag">Remote hamlets</span>
-              </div>
-            </div>
-            <div className="card">
-              <h3>Low Profit for Companies</h3>
-              <p>
-                Telecom companies earn more from cities than from villages. With fewer users
-                and lower average recharge values, rural areas are not given first priority
-                for upgrades.
-              </p>
-              <div className="tag-list">
-                <span className="tag">Low ARPU</span>
-                <span className="tag">High cost per user</span>
-              </div>
-            </div>
-            <div className="card">
-              <h3>Outdated Devices</h3>
-              <p>
-                Many people still use older phones that do not support good 4G/5G bands or
-                Wi-Fi calling. Cheap routers and damaged cables further reduce speed.
-              </p>
-              <div className="tag-list">
-                <span className="tag">Old handsets</span>
-                <span className="tag">Weak routers</span>
-              </div>
-            </div>
-            <div className="card">
-              <h3>Limited Local Support</h3>
-              <p>
-                When something breaks, there is often no trained technician in the village.
-                Repairs take days, so people lose trust in online services and stay offline.
-              </p>
-              <div className="tag-list">
-                <span className="tag">No local technician</span>
-                <span className="tag">Slow repair</span>
-              </div>
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    function SolutionsSection() {
-      const [activeTab, setActiveTab] = useState("infra");
-      const current = SOLUTION_DETAILS[activeTab];
-
-      return (
-        <section id="solutions" className="section fade-in">
-          <div className="section-header">
-            <p className="section-kicker">From problem to action</p>
-            <h2 className="section-title">
-              Practical solutions that villages can start today
-            </h2>
-            <p className="section-subtitle">
-              These ideas focus on what is possible with limited budgets—using community
-              effort, simple technology and existing schemes instead of waiting forever for
-              big projects.
-            </p>
-          </div>
-
-          <div className="tabs">
-            <button
-              className={"tab-btn " + (activeTab === "infra" ? "active" : "")}
-              onClick={() => setActiveTab("infra")}
-            >
-              Community Wi-Fi
-            </button>
-            <button
-              className={"tab-btn " + (activeTab === "software" ? "active" : "")}
-              onClick={() => setActiveTab("software")}
-            >
-              Offline-first apps
-            </button>
-            <button
-              className={"tab-btn " + (activeTab === "govt" ? "active" : "")}
-              onClick={() => setActiveTab("govt")}
-            >
-              Government support
-            </button>
-            <button
-              className={"tab-btn " + (activeTab === "community" ? "active" : "")}
-              onClick={() => setActiveTab("community")}
-            >
-              Community training
-            </button>
-          </div>
-
-          <div className="card">
-            <h3>{current.title}</h3>
-            <ul style={{ marginTop: "0.6rem", paddingLeft: "1.1rem" }}>
-              {current.points.map((p, index) => (
-                <li
-                  key={index}
-                  style={{
-                    fontSize: "0.9rem",
-                    marginBottom: "0.3rem",
-                    color: "#4b5563"
-                  }}
-                >
-                  {p}
-                </li>
-              ))}
-            </ul>
-
-            <div className="steps">
-              <div className="step">
-                <div className="step-title">Step 1 – Listen to the village</div>
-                <div className="step-body">
-                  Talk to students, teachers, farmers and shopkeepers. Note when they need
-                  internet most — evenings for study, morning for crop prices, etc.
-                </div>
-              </div>
-              <div className="step">
-                <div className="step-title">Step 2 – Map existing strengths</div>
-                <div className="step-body">
-                  Identify houses with the best signal, stable electricity, and people
-                  willing to host routers or common devices.
-                </div>
-              </div>
-              <div className="step">
-                <div className="step-title">Step 3 – Start small &amp; improve</div>
-                <div className="step-body">
-                  Begin with one hotspot or digital help desk. Collect feedback, measure
-                  savings in travel and time, and expand based on real experience.
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    function CaseStudiesSection() {
-      return (
-        <section id="cases" className="section fade-in delay-1">
-          <div className="section-header">
-            <p className="section-kicker">Stories from the field</p>
-            <h2 className="section-title">
-              Simple case studies that can be copied anywhere
-            </h2>
-            <p className="section-subtitle">
-              These are realistic models that schools or youth groups can adapt for their
-              own village, even as a science fair or community project.
-            </p>
-          </div>
-
-          <div className="card-grid">
-            <div className="card">
-              <h3>Village Study Hub</h3>
-              <p>
-                The government school sets up one strong 4G router with an external antenna.
-                In the evenings, students living nearby connect for online classes and to
-                download notes.
-              </p>
-              <ul
-                style={{ paddingLeft: "1.1rem", marginTop: "0.4rem", fontSize: "0.85rem" }}
-              >
-                <li>Cost shared by school, alumni and a local NGO</li>
-                <li>Router runs on UPS so small power cuts don&apos;t interrupt classes</li>
-                <li>Time slots are set for each class to use the hub fairly</li>
-              </ul>
-            </div>
-            <div className="card">
-              <h3>Farmer Information Kiosk</h3>
-              <p>
-                A shop owner in the village market sets up a simple PC with internet. Farmers
-                visit to check crop prices, weather forecasts and government schemes.
-              </p>
-              <ul
-                style={{ paddingLeft: "1.1rem", marginTop: "0.4rem", fontSize: "0.85rem" }}
-              >
-                <li>Local youth helps fill online forms and print receipts</li>
-                <li>Shop earns a small service fee, farmers save travel and time</li>
-              </ul>
-            </div>
-            <div className="card">
-              <h3>Offline Learning Server</h3>
-              <p>
-                A teacher stores videos, PDFs and quizzes on a tiny local server (for example
-                a Raspberry Pi). Students connect to its Wi-Fi and learn without using
-                mobile data.
-              </p>
-              <ul
-                style={{ paddingLeft: "1.1rem", marginTop: "0.4rem", fontSize: "0.85rem" }}
-              >
-                <li>Content updated once a week using any available data</li>
-                <li>Works even when mobile network is down</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    function ResourcesSection() {
-      return (
-        <section id="resources" className="section fade-in">
-          <div className="section-header">
-            <p className="section-kicker">Ideas you can reuse</p>
-            <h2 className="section-title">Helpful resources for projects &amp; pilots</h2>
-            <p className="section-subtitle">
-              Use these points directly in your project file, viva, hackathon pitch or as a
-              checklist for real implementation.
-            </p>
-          </div>
-
-          <div className="card-grid">
-            <div className="card">
-              <h3>Technical Ideas</h3>
-              <ul className="resource-list">
-                <li>Use long-range Wi-Fi routers or mesh systems to cover more houses.</li>
-                <li>Add signal booster antennas in low-coverage zones.</li>
-                <li>Prefer light-weight websites and apps that use less data.</li>
-                <li>Use “save page for offline” and download-for-offline features.</li>
-              </ul>
-            </div>
-            <div className="card">
-              <h3>Social &amp; Educational Ideas</h3>
-              <ul className="resource-list">
-                <li>Run basic smartphone and internet training in local language.</li>
-                <li>Teach people how to avoid scams, OTP fraud and fake news.</li>
-                <li>Ask teachers to give digital work that can be done offline.</li>
-              </ul>
-            </div>
-            <div className="card">
-              <h3>Project &amp; Hackathon Ideas</h3>
-              <ul className="resource-list">
-                <li>
-                  Build a low-data website like this one that works even in weak networks.
-                </li>
-                <li>Design an SMS-based information system for farmers or students.</li>
-                <li>
-                  Create a “Digital Help Desk” web app listing nearby services and kiosk
-                  timings.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      );
-    }
-
-    function FAQItem({ q, a }) {
-      const [open, setOpen] = useState(false);
-      return (
-        <div className="faq-item" onClick={() => setOpen(!open)}>
-          <div className="faq-question">
-            <h4>{q}</h4>
-            <div className="faq-toggle">{open ? "−" : "+"}</div>
-          </div>
-          {open && <div className="faq-answer">{a}</div>}
-        </div>
-      );
-    }
-
-    function FAQSection() {
-      const faqs = [
-        {
-          q: "Is fast internet the only solution?",
-          a: "No. Even with slow internet, we can improve access by using offline content, shared Wi-Fi hubs and by planning when to download important files."
-        },
-        {
-          q: "What can students practically do?",
-          a: "Students can survey their village, teach elders to use smartphones, help with online forms and present these findings as a project to demand better connectivity."
-        },
-        {
-          q: "Do we always need expensive hardware?",
-          a: "Not always. Many improvements are low-cost: correct placement of the router, better antennas, sharing one strong connection and using low-data apps."
-        },
-        {
-          q: "How can this website fit in my school project?",
-          a: "You can show this as your front-end, attach a survey report and propose one pilot idea—like a study hub or kiosk—for your own village."
-        }
-      ];
-
-      return (
-        <section className="section fade-in delay-2">
-          <div className="section-header">
-            <p className="section-kicker">Quick answers</p>
-            <h2 className="section-title">Frequently asked questions</h2>
-            <p className="section-subtitle">
-              Tap on any question to see a simple explanation that you can also reuse in
-              your project viva.
-            </p>
-          </div>
-
-          {faqs.map((f, i) => (
-            <FAQItem key={i} q={f.q} a={f.a} />
-          ))}
-        </section>
-      );
-    }
-
-    function ContactSection() {
-      const [name, setName] = useState("");
-      const [role, setRole] = useState("");
-      const [idea, setIdea] = useState("");
-      const [submitted, setSubmitted] = useState(false);
-
-      function handleSubmit(e) {
-        e.preventDefault();
-        setSubmitted(true);
-        setName("");
-        setRole("");
-        setIdea("");
-        setTimeout(() => setSubmitted(false), 2600);
+          </nav>
+        );
       }
 
-      return (
-        <section id="contact" className="section fade-in">
-          <div className="section-header">
-            <p className="section-kicker">Your turn</p>
-            <h2 className="section-title">Share one action you can take</h2>
-            <p className="section-subtitle">
-              Treat this form as your personal pledge. In a real deployment, these ideas
-              would be sent to a server or a community dashboard.
-            </p>
-          </div>
-
-          <div className="form-card">
-            <form onSubmit={handleSubmit}>
-              <div className="form-group">
-                <label>Your name</label>
-                <input
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder="Enter your name"
-                  required
-                />
+      function UpdatesBar() {
+        return (
+          <div className="updates-bar">
+            <div className="updates-label">
+              <span>🔔</span>
+              <span>Updates</span>
+            </div>
+            <div className="updates-marquee">
+              <div className="updates-text">
+                • New digital literacy centres opening in 50 villages next month.&nbsp;&nbsp;• Government announces
+                subsidies for smartphone purchases for rural households.&nbsp;&nbsp;• Over 500 villages connected to
+                high-speed internet this month.
               </div>
-              <div className="form-group">
-                <label>You are a...</label>
-                <select
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                  required
+            </div>
+          </div>
+        );
+      }
+
+      /* ===== HERO (content from website1) ===== */
+
+      function Hero() {
+        const handleCta = (id) => {
+          alert("CTA clicked: " + id);
+        };
+
+        return (
+          <section className="hero">
+            <div className="hero-left">
+              <span className="hero-eyebrow">Bridging the Digital Divide</span>
+              <h1 className="hero-title">
+                Empowering Rural India
+                <br />
+                Through <span>Digital Access</span>
+              </h1>
+              <p className="hero-tagline">
+                Connecting villages to essential services, education, healthcare and
+                market information through simplified technology.
+              </p>
+
+              <div className="hero-metric-row">
+                <div className="hero-metric">
+                  <strong>Government services</strong>
+                  Aadhaar, PM-Kisan, pension and schemes available without travelling to
+                  town again and again.
+                </div>
+                <div className="hero-metric">
+                  <strong>Daily life</strong>
+                  Online classes, telemedicine and digital payments become part of normal
+                  village routines.
+                </div>
+              </div>
+
+              <div className="hero-buttons">
+                <button
+                  className="btn-primary"
+                  onClick={() => handleCta("get-started")}
                 >
-                  <option value="">Select one</option>
-                  <option value="student">Student</option>
-                  <option value="teacher">Teacher</option>
-                  <option value="farmer">Farmer</option>
-                  <option value="shopkeeper">Shopkeeper</option>
-                  <option value="ngo">NGO / volunteer</option>
-                  <option value="other">Other</option>
-                </select>
+                  <span className="btn-icon">⚡</span>
+                  Get Started →
+                </button>
+                <button
+                  className="btn-ghost"
+                  onClick={() => handleCta("learn-more")}
+                >
+                  <span className="btn-icon">📘</span>
+                  Learn More
+                </button>
               </div>
-              <div className="form-group">
-                <label>One idea to improve internet access in your area</label>
-                <textarea
-                  value={idea}
-                  onChange={(e) => setIdea(e.target.value)}
-                  placeholder="Example: Start an evening study hub with shared Wi-Fi in our school..."
-                  required
-                />
+            </div>
+
+            <div className="hero-right">
+              <div className="hero-right-inner">
+                <div className="hero-chip">
+                  <span>🌾</span> Community internet snapshot
+                </div>
+                <p style={{ fontSize: "0.88rem", color: "#064e3b" }}>
+                  A strong connection plus basic digital skills can turn a village phone
+                  into a classroom, a bank counter and a clinic — all in one.
+                </p>
+                <div className="hero-visual-box">
+                  <div className="hero-visual-title">
+                    What changes when a village goes online?
+                  </div>
+                  <ul className="hero-visual-list">
+                    <li>Students join online classes and exam prep groups.</li>
+                    <li>Farmers check crop prices and weather before selling.</li>
+                    <li>Families pay bills and receive benefits digitally.</li>
+                    <li>
+                      Health workers consult doctors through telemedicine when needed.
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <button type="submit" className="btn-primary">
-                <span className="btn-icon">✅</span>
-                Submit pledge (stored locally)
-              </button>
-            </form>
-            {submitted && (
-              <div className="success-msg">
-                Your idea has been recorded in this session. Great first step toward
-                bridging the rural internet gap! 🌾
+            </div>
+          </section>
+        );
+      }
+
+      /* ===== CATEGORIES (Education / Govt / Healthcare) ===== */
+
+      function CategoriesSection() {
+        const handleCardClick = (anchor) => {
+          const el = document.getElementById(anchor);
+          if (!el) return;
+          const y =
+            el.getBoundingClientRect().top + window.pageYOffset - 70;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        };
+
+        return (
+          <section className="categories-section">
+            <div>
+              <h3 className="categories-header-title">Explore by category</h3>
+              <p className="categories-header-text">
+                Quick links to the most requested services and resources for rural
+                users.
+              </p>
+            </div>
+
+            <div className="category-grid">
+              <div
+                id="education-card"
+                className="category-card"
+                onClick={() => handleCardClick("education")}
+              >
+                <div className="category-icon">📚</div>
+                <div>
+                  <h4 className="category-title">Education</h4>
+                  <p className="category-text">
+                    Digital classrooms, scholarship portals and open courses for rural
+                    students.
+                  </p>
+                </div>
               </div>
-            )}
+
+              <div
+                id="govt-services-card"
+                className="category-card"
+                onClick={() => handleCardClick("govt-services")}
+              >
+                <div className="category-icon">🏛</div>
+                <div>
+                  <h4 className="category-title">Government Services</h4>
+                  <p className="category-text">
+                    Aadhaar, PM-Kisan, pension, ration and other key portals in one
+                    organised place.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                id="healthcare-card"
+                className="category-card"
+                onClick={() => handleCardClick("healthcare")}
+              >
+                <div className="category-icon">🩺</div>
+                <div>
+                  <h4 className="category-title">Healthcare</h4>
+                  <p className="category-text">
+                    Telemedicine, Ayushman Bharat links and local health camp
+                    schedules.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      }
+
+      /* ===== SIMPLE DETAIL SECTIONS FOR EACH CATEGORY ===== */
+
+      function DetailSections() {
+        return (
+          <div>
+            <section id="education" className="section fade-in">
+              <div className="section-header">
+                <p className="section-kicker">Education</p>
+                <h2 className="section-title">Digital learning for every student</h2>
+                <p className="section-subtitle">
+                  When internet is available and affordable, even remote schools can
+                  give students access to recorded lectures, doubt-clearing sessions
+                  and exam preparation content.
+                </p>
+              </div>
+              <div className="card-grid">
+                <div className="card">
+                  <h3>Online classrooms</h3>
+                  <p>
+                    Simple low-data classrooms using recorded lessons and live audio
+                    sessions scheduled in the evenings when students are free.
+                  </p>
+                </div>
+                <div className="card">
+                  <h3>Scholarships &amp; exams</h3>
+                  <p>
+                    Help desks guide students through online forms for scholarships,
+                    competitive exams and college admissions.
+                  </p>
+                </div>
+                <div className="card">
+                  <h3>Community study hubs</h3>
+                  <p>
+                    One Wi-Fi router at a school or community hall can support dozens
+                    of students downloading content for offline study.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section id="govt-services" className="section fade-in delay-1">
+              <div className="section-header">
+                <p className="section-kicker">Government services</p>
+                <h2 className="section-title">
+                  Access to schemes without long travel
+                </h2>
+                <p className="section-subtitle">
+                  Internet plus guidance means villagers can claim the benefits already
+                  meant for them — without losing wages in travelling to offices.
+                </p>
+              </div>
+              <div className="card-grid">
+                <div className="card">
+                  <h3>Aadhaar &amp; ID updates</h3>
+                  <p>
+                    Basic corrections, downloads and status checks handled at village
+                    kiosks with secure logins.
+                  </p>
+                </div>
+                <div className="card">
+                  <h3>Farmer schemes</h3>
+                  <p>
+                    PM-Kisan registration, land record viewing and insurance claims
+                    filed digitally with local assistance.
+                  </p>
+                </div>
+                <div className="card">
+                  <h3>Social security</h3>
+                  <p>
+                    Pension, ration and other entitlement checks done on phone instead
+                    of multiple counter visits.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section id="healthcare" className="section fade-in delay-2">
+              <div className="section-header">
+                <p className="section-kicker">Healthcare</p>
+                <h2 className="section-title">Telemedicine and health support</h2>
+                <p className="section-subtitle">
+                  Stable internet enables health workers and families to contact
+                  doctors quickly and follow reliable advice instead of rumours.
+                </p>
+              </div>
+              <div className="card-grid">
+                <div className="card">
+                  <h3>Tele-consultation</h3>
+                  <p>
+                    Village health workers connect patients to doctors over video or
+                    audio calls for initial guidance.
+                  </p>
+                </div>
+                <div className="card">
+                  <h3>Ayushman Bharat &amp; schemes</h3>
+                  <p>
+                    People can check eligibility, empanelled hospitals and claim
+                    status online without agents.
+                  </p>
+                </div>
+                <div className="card">
+                  <h3>Health awareness</h3>
+                  <p>
+                    Verified videos and infographics shared through village WhatsApp
+                    groups in local language.
+                  </p>
+                </div>
+              </div>
+            </section>
           </div>
-        </section>
-      );
-    }
+        );
+      }
 
-    function Footer() {
-      return (
-        <footer className="footer">
-          <div className="footer-inner">
-            <span>
-              © {new Date().getFullYear()} <span className="footer-highlight">RuralConnect</span>.
-              Built as an educational project to explain the problem of low internet access
-              in rural areas and ways to solve it.
-            </span>
-            <span>
-              Frontend stack: HTML · CSS · JavaScript · React (CDN) — optimised for low-data,
-              mobile-friendly viewing.
-            </span>
+      /* ===== WHY DIGITAL EMPOWERMENT MATTERS (centered block) ===== */
+
+      function EmpowermentSection() {
+        return (
+          <section className="section empower-section">
+            <h3 className="empower-title">Why Digital Empowerment Matters</h3>
+            <p className="empower-text">
+              Digital access increases economic opportunity, improves healthcare and
+              education, and strengthens community resilience. This platform combines
+              stronger internet connections with simple guidance so that every
+              villager — not just a few experts — can benefit from online services.
+            </p>
+          </section>
+        );
+      }
+
+      /* ===== FAQ & CONTACT (reused from earlier website 2, text adjusted slightly) ===== */
+
+      function FAQItem({ q, a }) {
+        const [open, setOpen] = useState(false);
+        return (
+          <div className="faq-item" onClick={() => setOpen(!open)}>
+            <div className="faq-question">
+              <h4>{q}</h4>
+              <div className="faq-toggle">{open ? "−" : "+"}</div>
+            </div>
+            {open && <div className="faq-answer">{a}</div>}
           </div>
-        </footer>
-      );
-    }
+        );
+      }
 
-    function ScrollTopButton() {
-      const [visible, setVisible] = useState(false);
+      function FAQSection() {
+        const faqs = [
+          {
+            q: "Is fast internet the only solution?",
+            a: "No. Even with slow networks we can improve access by using offline content, community Wi-Fi hubs and planning downloads during low-traffic hours."
+          },
+          {
+            q: "What can students practically do?",
+            a: "Students can survey their village, help elders with smartphones, assist in filling online forms and present these findings as a project to ask for better connectivity."
+          },
+          {
+            q: "Do we always need expensive hardware?",
+            a: "Not always. Correct router placement, better antennas, shared connections and low-data apps can create big improvements at low cost."
+          },
+          {
+            q: "How can I show this as a school project?",
+            a: "Use this website as your front-end, attach survey data, and propose one pilot idea such as a study hub, farmer kiosk or digital help desk in your village."
+          }
+        ];
 
-      useEffect(() => {
-        function onScroll() {
-          setVisible(window.scrollY > 260);
+        return (
+          <section id="faq" className="section fade-in">
+            <div className="section-header">
+              <p className="section-kicker">Quick answers</p>
+              <h2 className="section-title">Frequently asked questions</h2>
+              <p className="section-subtitle">
+                These explanations can be used directly in your project file or viva
+                when you talk about rural internet and digital empowerment.
+              </p>
+            </div>
+
+            {faqs.map((f, i) => (
+              <FAQItem key={i} q={f.q} a={f.a} />
+            ))}
+          </section>
+        );
+      }
+
+      function ContactSection() {
+        const [name, setName] = useState("");
+        const [role, setRole] = useState("");
+        const [idea, setIdea] = useState("");
+        const [submitted, setSubmitted] = useState(false);
+
+        function handleSubmit(e) {
+          e.preventDefault();
+          setSubmitted(true);
+          setName("");
+          setRole("");
+          setIdea("");
+          setTimeout(() => setSubmitted(false), 2600);
         }
-        window.addEventListener("scroll", onScroll);
-        return () => window.removeEventListener("scroll", onScroll);
-      }, []);
 
-      if (!visible) return null;
+        return (
+          <section id="contact" className="section fade-in">
+            <div className="section-header">
+              <p className="section-kicker">Your turn</p>
+              <h2 className="section-title">Share one action you can take</h2>
+              <p className="section-subtitle">
+                Treat this form as your personal pledge. In a real system, these ideas
+                could be saved to a server or community dashboard.
+              </p>
+            </div>
 
-      return (
-        <div className="scroll-top">
-          <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-            ↑ Top
-          </button>
-        </div>
-      );
-    }
+            <div className="form-card">
+              <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                  <label>Your name</label>
+                  <input
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
+                <div className="form-group">
+                  <label>You are a...</label>
+                  <select
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    required
+                  >
+                    <option value="">Select one</option>
+                    <option value="student">Student</option>
+                    <option value="teacher">Teacher</option>
+                    <option value="farmer">Farmer</option>
+                    <option value="shopkeeper">Shopkeeper</option>
+                    <option value="ngo">NGO / volunteer</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>
+                    One idea to improve digital access in your area
+                  </label>
+                  <textarea
+                    value={idea}
+                    onChange={(e) => setIdea(e.target.value)}
+                    placeholder="Example: Start an evening study hub with shared Wi-Fi at our school..."
+                    required
+                  />
+                </div>
+                <button type="submit" className="btn-primary">
+                  <span className="btn-icon">✅</span>
+                  Submit pledge (stored locally)
+                </button>
+              </form>
+              {submitted && (
+                <div className="success-msg">
+                  Your idea has been recorded in this session. Great first step toward
+                  bridging the rural digital gap! 🌾
+                </div>
+              )}
+            </div>
+          </section>
+        );
+      }
 
-    function App() {
-      return (
-        <div>
-          <Navbar />
-          <Hero />
-          <ProblemSection />
-          <CausesSection />
-          <SolutionsSection />
-          <CaseStudiesSection />
-          <ResourcesSection />
-          <FAQSection />
-          <ContactSection />
-          <Footer />
-          <ScrollTopButton />
-        </div>
-      );
-    }
+      /* ===== FOOTER & SCROLL TOP ===== */
 
+      function Footer() {
+        return (
+          <footer className="footer">
+            <div className="footer-inner">
+              <span>
+                © {new Date().getFullYear()}{" "}
+                <span className="footer-highlight">Digital Empowerment · RuralConnect</span
+                >. Built as an educational project on low internet access and rural
+                digital inclusion.
+              </span>
+              <span>
+                Frontend stack: HTML · CSS · JavaScript · React (CDN) — optimised for
+                low-data, mobile-friendly viewing.
+              </span>
+            </div>
+          </footer>
+        );
+      }
 
-    const rootEl = document.getElementById("root");
-    const root = ReactDOM.createRoot(rootEl);
-    root.render(<App />);
+      function ScrollTopButton() {
+        const [visible, setVisible] = useState(false);
+
+        useEffect(() => {
+          function onScroll() {
+            setVisible(window.scrollY > 260);
+          }
+          window.addEventListener("scroll", onScroll);
+          return () => window.removeEventListener("scroll", onScroll);
+        }, []);
+
+        if (!visible) return null;
+
+        return (
+          <div className="scroll-top">
+            <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+              ↑ Top
+            </button>
+          </div>
+        );
+      }
+
+      /* ===== HELP BUTTON + MODAL (emergency contacts) ===== */
+
+      function HelpModal({ open, onClose }) {
+        const [copied, setCopied] = useState(false);
+
+        if (!open) return null;
+
+        const text =
+          "National Emergency: 112\nPolice: 100\nAmbulance: 102\nFire: 101\nWomen Helpline: 181\nChild Helpline: 1098";
+
+        const handleCopy = async () => {
+          try {
+            await navigator.clipboard.writeText(text);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 1500);
+          } catch (e) {
+            alert("Copy not supported. Please copy manually:\n" + text);
+          }
+        };
+
+        return (
+          <div className="help-backdrop" onClick={onClose}>
+            <div className="help-dialog" onClick={(e) => e.stopPropagation()}>
+              <div className="help-dialog-header">
+                <h3 className="help-dialog-title">Emergency Contacts</h3>
+                <button className="help-close-btn" onClick={onClose}>
+                  ✕
+                </button>
+              </div>
+              <p style={{ margin: "0 0 0.7rem", fontSize: "0.85rem", color: "#64748b" }}>
+                Tap a number on mobile to call directly, or copy the list for later use.
+              </p>
+
+              <div className="help-dialog-body">
+                <ul className="help-list">
+                  <li className="help-item">
+                    <div>
+                      <span className="help-item-title">National Emergency</span>
+                      <span className="help-item-sub">
+                        All-in-one emergency number
+                      </span>
+                    </div>
+                    <a className="help-item-link" href="tel:112">
+                      112
+                    </a>
+                  </li>
+                  <li className="help-item">
+                    <div>
+                      <span className="help-item-title">Police (State)</span>
+                      <span className="help-item-sub">
+                        Local police control room
+                      </span>
+                    </div>
+                    <a className="help-item-link" href="tel:100">
+                      100
+                    </a>
+                  </li>
+                  <li className="help-item">
+                    <div>
+                      <span className="help-item-title">Ambulance</span>
+                      <span className="help-item-sub">Medical emergency</span>
+                    </div>
+                    <a className="help-item-link" href="tel:102">
+                      102
+                    </a>
+                  </li>
+                  <li className="help-item">
+                    <div>
+                      <span className="help-item-title">Fire</span>
+                      <span className="help-item-sub">Fire brigade</span>
+                    </div>
+                    <a className="help-item-link" href="tel:101">
+                      101
+                    </a>
+                  </li>
+                  <li className="help-item">
+                    <div>
+                      <span className="help-item-title">Women Helpline</span>
+                      <span className="help-item-sub">Support and assistance</span>
+                    </div>
+                    <a className="help-item-link" href="tel:181">
+                      181
+                    </a>
+                  </li>
+                  <li className="help-item">
+                    <div>
+                      <span className="help-item-title">Child Helpline</span>
+                      <span className="help-item-sub">Missing/abuse reports</span>
+                    </div>
+                    <a className="help-item-link" href="tel:1098">
+                      1098
+                    </a>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="help-actions">
+                <button className="help-copy-btn" onClick={handleCopy}>
+                  {copied ? "Copied ✓" : "Copy all"}
+                </button>
+                <button className="help-close-bottom" onClick={onClose}>
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      }
+
+      function HelpFab({ onClick }) {
+        return (
+          <div className="help-fab" onClick={onClick}>
+            <span>📞</span>
+            <span>Help</span>
+          </div>
+        );
+      }
+
+      /* ===== ROOT APP ===== */
+
+      function App() {
+        const [helpOpen, setHelpOpen] = useState(false);
+
+        return (
+          <div>
+            <Navbar />
+            <UpdatesBar />
+            <Hero />
+            <CategoriesSection />
+            <DetailSections />
+            <EmpowermentSection />
+            <FAQSection />
+            <ContactSection />
+            <Footer />
+            <ScrollTopButton />
+            <HelpFab onClick={() => setHelpOpen(true)} />
+            <HelpModal open={helpOpen} onClose={() => setHelpOpen(false)} />
+          </div>
+        );
+      }
+
+      const rootEl = document.getElementById("root");
+      const root = ReactDOM.createRoot(rootEl);
+      root.render(<App />);
