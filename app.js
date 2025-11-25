@@ -3,7 +3,7 @@ const { useState, useEffect } = React;
 /* ===== TRANSLATIONS (Villager Persona) ===== */
 const translations = {
   en: {
-    title: "My Digital Village hello",
+    title: "My Digital Village",
     subtitle: "My Connection to the World",
     govt: "My Benefits",
     health: "My Health",
