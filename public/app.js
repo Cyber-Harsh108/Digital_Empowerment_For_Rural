@@ -8,7 +8,7 @@ const { useState, useEffect } = React;
 const translations = {
   en: {
     // general
-    title: "Gram Sathi",
+    title: "GramSathi (Your Daily Helper)",
     subtitle: "My Dashboard",
     login: "My Login",
     updates: "Village News",
@@ -120,7 +120,7 @@ const translations = {
 
   hi: {
     // general
-    title: "Gram Sathi",
+    title: "ग्रामसाथी (आपका डिजिटल मददगार)",
     subtitle: "मेरा डैशबोर्ड",
     login: "लॉग इन",
     updates: "गाँव की खबरें",
@@ -232,7 +232,7 @@ const translations = {
 
   ta: {
     // general
-    title: "Gram Sathi",
+    title: "கிராம்சாதி (உங்கள் டிஜிட்டல் உதவி)",
     subtitle: "எனது டாஷ்போர்ட்",
     login: "உள்நுழைய",
     updates: "கிராம செய்திகள்",
@@ -345,7 +345,7 @@ const translations = {
 
   te: {
     // general
-    title: "Gram Sathi",
+    title: "గ్రామసాథి (మీ డిజిటల్ సహాయకుడు)",
     subtitle: "నా డాష్‌బోర్డ్",
     login: "లాగిన్",
     updates: "గ్రామ వార్తలు",
@@ -1118,6 +1118,10 @@ function ScrollTopButton({ lang }) {
 function App() {
   const [helpOpen, setHelpOpen] = useState(false);
   const [lang, setLang] = useState("en");
+  useEffect(() => {
+  const t = translations[lang] || translations["en"];
+  document.title = t.title;   // or any other translation key you want
+}, [lang]);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [loginOpen, setLoginOpen] = useState(false);
   const [dashboardOpen, setDashboardOpen] = useState(false);
